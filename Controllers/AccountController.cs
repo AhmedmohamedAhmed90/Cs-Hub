@@ -4,10 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Cs_Hub.Dtos;
 using Cs_Hub.Interfaces;
 using Cs_Hub.Models;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Cs_Hub.Controllers
 {
-    public class AccountController : ControllerBase
+    public class AccountController : Controller
     {
         private readonly UserManager<User> visitor;
         private readonly ITokenService _TokenService;
@@ -22,6 +23,18 @@ namespace Cs_Hub.Controllers
         }
 
         //[HttpPost("login")]
+
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
         public async Task<IActionResult> Login(Login login)
         {
             if (!ModelState.IsValid)
@@ -39,17 +52,18 @@ namespace Cs_Hub.Controllers
             var roles = await visitor.GetRolesAsync(user);
 
 
-            return Ok(
-                new NewUser
-                {
-                    UserName = user.UserName,
-                    Email = user.Email!,
-                    Role = roles[0],
-                    isAdmin = roles[0] == "Admin" ? true : false,
-                    Id = user.Id,
-                    Token = await _TokenService.CreateToken(user)
-                }
-            );
+            /* return Ok(
+                 new NewUser
+                 {
+                     UserName = user.UserName,
+                     Email = user.Email!,
+                     Role = roles[0],
+                     isAdmin = roles[0] == "Admin" ? true : false,
+                     Id = user.Id,
+                     Token = await _TokenService.CreateToken(user)
+                 }
+             );*/
+            return RedirectToAction("Privacy", "Home");
         }
 
         //[HttpPost("register")]
@@ -89,7 +103,7 @@ namespace Cs_Hub.Controllers
                   
                             Token = await _TokenService.CreateToken(User)
                         });*/
-                        return RedirectToAction("Privacy", "Home");
+                        return RedirectToAction("Login", "Account");
                     }
                     else
                     {
