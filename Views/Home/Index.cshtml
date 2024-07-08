@@ -1,8 +1,48 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Mvc.Rendering
+@using Microsoft.AspNetCore.Mvc.ViewFeatures
+@using Microsoft.AspNetCore.Mvc.RazorPages
+@model Cs_Hub.Dtos.Register
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
+<!--<div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>-->
+
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4 text-danger">Register</h2>
+    <form asp-controller="Account" asp-action="Register" method="post" class="needs-validation" novalidate>
+        <div class="mb-3">
+            <label asp-for="Username" class="form-label text-danger"></label>
+            <input asp-for="Username" class="form-control" style="background-color: white; color: red; border: 1px solid red;" required />
+            <span asp-validation-for="Username" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Email" class="form-label text-danger"></label>
+            <input asp-for="Email" class="form-control" style="background-color: white; color: red; border: 1px solid red;" required />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Password" class="form-label text-danger"></label>
+            <input asp-for="Password" class="form-control" type="password" style="background-color: white; color: red; border: 1px solid red;" required />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Address" class="form-label text-danger"></label>
+            <input asp-for="Address" class="form-control" style="background-color: white; color: red; border: 1px solid red;" />
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Age" class="form-label text-danger"></label>
+            <input asp-for="Age" class="form-control" type="number" style="background-color: white; color: red; border: 1px solid red;" required />
+            <span asp-validation-for="Age" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-danger">Register</button>
+    </form>
 </div>
+
+

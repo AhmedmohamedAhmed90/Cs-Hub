@@ -5,12 +5,13 @@ namespace Cs_Hub.Dtos
     public class Register
     {
 
-        public String? Username { get; set; }
+        public string? Username { get; set; }
+
         [Required]
         [EmailAddress]
         public string? Email { get; set; }
        
-        public String? Password { get; set; }
+        public string? Password { get; set; }
         [StringLength(100)]
         public string? Address { get; set; }
 

@@ -9,7 +9,7 @@ namespace Cs_Hub.Models
         public int Id { get; set; }*/
 
        
-        public string UserName { get; set; }
+       // public string UserName { get; set; }
 
       
         public int Age { get; set; }
@@ -18,10 +18,10 @@ namespace Cs_Hub.Models
         public string Address { get; set; }
 
       
-        public string Email { get; set; }
+       // public string Email { get; set; }
 
        
-        public string password { get; set; }
+        //public string password { get; set; }
 
        
         public ICollection<UserResourses>? UserResourses { get; set; }

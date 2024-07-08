@@ -53,18 +53,23 @@ namespace Cs_Hub.Controllers
         }
 
         //[HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] Register registerDto)
+        [HttpPost]
+        public async Task<IActionResult> Register( Register registerDto)
         {
+            Console.WriteLine("useeeeeeeeeeeeeeeeeeeeeeeer");
+            Console.WriteLine(registerDto.Username);
             try
             {
               
                 var User = new User
                 {
                    
-                    UserName = registerDto.Email,
+                    UserName = registerDto.Username,
                     Email = registerDto.Email,
                     
                     Address = registerDto.Address,
+
+                    Age=registerDto.Age,
                    
                     PasswordHash = registerDto.Password,
                    
@@ -75,7 +80,7 @@ namespace Cs_Hub.Controllers
                     var Result = await visitor.AddToRoleAsync(User, "User");
                     if (Result.Succeeded)
                     {
-                        return Ok(new NewUser
+                        /*return Ok(new NewUser
                         {
                             Id = User.Id,
                             Email = User.Email!,
@@ -83,7 +88,8 @@ namespace Cs_Hub.Controllers
                             isAdmin = false,
                   
                             Token = await _TokenService.CreateToken(User)
-                        });
+                        });*/
+                        return RedirectToAction("Privacy", "Home");
                     }
                     else
                     {

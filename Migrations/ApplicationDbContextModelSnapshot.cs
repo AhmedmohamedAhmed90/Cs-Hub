@@ -98,7 +98,6 @@ namespace Cs_Hub.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
@@ -135,13 +134,8 @@ namespace Cs_Hub.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("UserName")
-                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -211,15 +205,15 @@ namespace Cs_Hub.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "7eb7ab9c-7a82-47a9-b34a-487db765aebd",
-                            ConcurrencyStamp = "d1694350-c76f-4332-bbbd-635bb44b6d90",
+                            Id = "4bcb9765-f204-4f69-8f12-db5c9f9430b2",
+                            ConcurrencyStamp = "087bea4a-c36d-4a50-a8df-b1e852bb5a88",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "21265271-899d-40c1-a96f-3524ca88c457",
-                            ConcurrencyStamp = "9f1a7dfc-96da-43fc-ab4c-3abe2da6c84b",
+                            Id = "51c8db77-5b7b-4314-a42d-569697e27f3d",
+                            ConcurrencyStamp = "81311e7b-a886-408f-89de-585016ef70a0",
                             Name = "User",
                             NormalizedName = "USER"
                         });
