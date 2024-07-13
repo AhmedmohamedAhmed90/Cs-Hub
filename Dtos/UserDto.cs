@@ -4,9 +4,9 @@ namespace Cs_Hub.Dtos
 {
     public class UserDto
     {
-      
 
-            public string? Username { get; set; }
+        public string Id { get; set; }
+        public string? Username { get; set; }
 
             [Required]
             [EmailAddress]
@@ -18,8 +18,10 @@ namespace Cs_Hub.Dtos
             [Range(0, 150)]
             public int Age { get; set; }
 
-        [Range(0, 9)]
-        public int Password { get; set; }
+
+       
+
+
 
 
     }

@@ -5,6 +5,7 @@ using Cs_Hub.Data;
 using Microsoft.AspNetCore.Identity;
 using Cs_Hub.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace Cs_Hub.Controllers
 {
@@ -62,7 +63,7 @@ namespace Cs_Hub.Controllers
             var addRoleResult = await _userManager.AddToRoleAsync(user, "Admin");
             if (addRoleResult.Succeeded)
             {
-                return Ok("User promoted to Admin successfully");
+                return RedirectToAction("GetAllUsers");
             }
             else
             {
@@ -74,8 +75,19 @@ namespace Cs_Hub.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllUsers()
         {
-            var users = await _userManager.Users.ToListAsync();
-            return RedirectToAction("Index", "Home");
+
+            var users = await _userManager.Users
+             .Select(u => new UserDto
+             {
+                 Username = u.UserName,
+                 Email = u.Email,
+                 Age = u.Age,
+                 Address = u.Address,
+                 Id = u.Id
+             })
+             .ToListAsync();
+
+            return View(users);
 
         }
 
@@ -98,10 +110,31 @@ namespace Cs_Hub.Controllers
         }
 
 
+        [HttpPost]
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return BadRequest("User ID is required");
+            }
+
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
+
+            var result = await _userManager.DeleteAsync(user);
+            
+                return RedirectToAction("GetAllUsers");
+            
+        }
 
 
 
 
-    }
+
+
+        }
 
 }
