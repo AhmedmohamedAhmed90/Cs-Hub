@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "3Kzg5Hs5SsyoBesGT64OqzXAyZG/p+yWfovarsp41k5wQ2BhC13B+Ac10Lbw7aoGM7x3v+KfR+AafATODVu8Jw==",
+  "dgSpecHash": "A2iZvuObEulCbUW7u8rwbAs8eq9NLFHIxl98LyrdZzEzfFYJFW5n53Jhk/NCuE9tjSiL1aeDiS3efzsDsFxGbQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\ZIAD\\OneDrive\\Desktop\\Cs-Hub\\Cs-Hub.csproj",
+  "projectFilePath": "C:\\Users\\ZIAD\\Documents\\GitHub\\Cs-Hub\\Cs-Hub.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ZIAD\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\ZIAD\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
@@ -225,7 +225,11 @@
     "C:\\Users\\ZIAD\\.nuget\\packages\\system.threading.timer\\4.3.0\\system.threading.timer.4.3.0.nupkg.sha512",
     "C:\\Users\\ZIAD\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512",
     "C:\\Users\\ZIAD\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
-    "C:\\Users\\ZIAD\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512"
+    "C:\\Users\\ZIAD\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
+    "C:\\Users\\ZIAD\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.31\\microsoft.netcore.app.ref.6.0.31.nupkg.sha512",
+    "C:\\Users\\ZIAD\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.31\\microsoft.windowsdesktop.app.ref.6.0.31.nupkg.sha512",
+    "C:\\Users\\ZIAD\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.31\\microsoft.aspnetcore.app.ref.6.0.31.nupkg.sha512",
+    "C:\\Users\\ZIAD\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.31\\microsoft.netcore.app.host.win-x64.6.0.31.nupkg.sha512"
   ],
   "logs": []
 }

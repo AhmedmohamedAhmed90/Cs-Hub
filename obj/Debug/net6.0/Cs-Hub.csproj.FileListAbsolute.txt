@@ -319,3 +319,12 @@ C:\Users\ZIAD\OneDrive\Desktop\Cs-Hub\bin\Debug\net6.0\runtimes\unix\lib\net6.0\
 C:\Users\ZIAD\OneDrive\Desktop\Cs-Hub\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
 C:\Users\ZIAD\OneDrive\Desktop\Cs-Hub\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\ZIAD\OneDrive\Desktop\Cs-Hub\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+C:\Users\ZIAD\Documents\GitHub\Cs-Hub\obj\Debug\net6.0\Cs-Hub.csproj.AssemblyReference.cache
+C:\Users\ZIAD\Documents\GitHub\Cs-Hub\obj\Debug\net6.0\Cs-Hub.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ZIAD\Documents\GitHub\Cs-Hub\obj\Debug\net6.0\Cs-Hub.AssemblyInfoInputs.cache
+C:\Users\ZIAD\Documents\GitHub\Cs-Hub\obj\Debug\net6.0\Cs-Hub.AssemblyInfo.cs
+C:\Users\ZIAD\Documents\GitHub\Cs-Hub\obj\Debug\net6.0\Cs-Hub.csproj.CoreCompileInputs.cache
+C:\Users\ZIAD\Documents\GitHub\Cs-Hub\obj\Debug\net6.0\Cs-Hub.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\ZIAD\Documents\GitHub\Cs-Hub\obj\Debug\net6.0\Cs-Hub.RazorAssemblyInfo.cache
+C:\Users\ZIAD\Documents\GitHub\Cs-Hub\obj\Debug\net6.0\Cs-Hub.RazorAssemblyInfo.cs
+C:\Users\ZIAD\Documents\GitHub\Cs-Hub\obj\Debug\net6.0\Cs-Hub.sourcelink.json

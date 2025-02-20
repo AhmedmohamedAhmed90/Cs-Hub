@@ -1,7 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
+using System;
+using System.Collections.Generic;
 
-namespace Cs_Hub.Models
+
+namespace Cs_Hub.Data
+
 {
     public class User : IdentityUser
     {
@@ -10,6 +14,7 @@ namespace Cs_Hub.Models
 
        
        // public string UserName { get; set; }
+        public string FullName { get; set; }
 
       
         public int Age { get; set; }
@@ -20,11 +25,13 @@ namespace Cs_Hub.Models
       
        // public string Email { get; set; }
 
-       
+    // Navigation property
+    public ICollection<Comment> Comments { get; set; }
+    public ICollection<Resource> Resources { get; set; }
         //public string password { get; set; }
 
        
-        public ICollection<UserResourses>? UserResourses { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
 
     }

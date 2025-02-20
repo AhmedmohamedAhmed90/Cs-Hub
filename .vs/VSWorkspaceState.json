@@ -2,9 +2,11 @@
   "ExpandedNodes": [
     "",
     "\\Controllers",
+    "\\Data",
+    "\\Models",
     "\\Views",
     "\\Views\\Shared"
   ],
-  "SelectedNode": "\\Cs-Hub.sln",
+  "SelectedNode": "\\Data\\ApplicationDbContext.cs",
   "PreviewInSolutionExplorer": false
 }

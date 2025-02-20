@@ -1,15 +1,19 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
-namespace Cs_Hub.Models
+namespace Cs_Hub.Data
+{ 
+public class Category
 {
-    public class Category
-    {
+    [Key]
+    public int CategoryID { get; set; }
 
-        [Key]
-        public int Id { get; set; }
+    [Required, MaxLength(100)]
+    public string Name { get; set; }
 
-        public  string  Name { get; set; }
+    public string Description { get; set; }
 
-        public ICollection<Resourse> Resourses { get; set; }
-    }
+    // Many-to-Many Relationship
+    public ICollection<ResourceCategory> ResourceCategories { get; set; }
 }
+    }
