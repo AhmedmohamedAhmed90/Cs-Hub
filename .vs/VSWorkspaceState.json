@@ -1,12 +1,16 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Controllers",
     "\\Data",
+    "\\Interfaces",
     "\\Models",
     "\\Services",
-    "\\Views\\Shared"
+    "\\Views",
+    "\\Views\\Account",
+    "\\Views\\Home",
+    "\\Views\\Shared",
+    "\\wwwroot"
   ],
-  "SelectedNode": "\\Cs-Hub.sln",
+  "SelectedNode": "\\Views\\CreateResourse.cshtml",
   "PreviewInSolutionExplorer": false
 }

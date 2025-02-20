@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 
 
-namespace Cs_Hub.Data
+namespace Cs_Hub.Models
 
 {
     public class User : IdentityUser

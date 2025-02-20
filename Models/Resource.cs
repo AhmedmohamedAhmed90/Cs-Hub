@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Cs_Hub.Data
+namespace Cs_Hub.Models
 
 { 
 public class Resource

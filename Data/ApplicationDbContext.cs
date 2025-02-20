@@ -55,12 +55,13 @@ namespace Cs_Hub.Data
                 .HasForeignKey(c => c.ResourceID)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // One-to-Many: User → Comments (A user can add multiple comments)
-            builder.Entity<Comment>()
-                .HasOne(c => c.User)
-                .WithMany(u => u.Comments)
-                .HasForeignKey(c => c.UserID)
-                .OnDelete(DeleteBehavior.Cascade);
+// One-to-Many: User → Comments (Disable Cascade Delete)
+builder.Entity<Comment>()
+    .HasOne(c => c.User)
+    .WithMany(u => u.Comments)
+    .HasForeignKey(c => c.UserID)
+    .OnDelete(DeleteBehavior.NoAction); // Prevent cascading delete
+
 
             // One-to-Many: Resource → Reviews (A resource can have multiple reviews)
             builder.Entity<Review>()
@@ -74,7 +75,7 @@ namespace Cs_Hub.Data
                 .HasOne(r => r.User)
                 .WithMany(u => u.Reviews)
                 .HasForeignKey(r => r.UserID)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.NoAction);
 
             // Seed Default Roles
             List<IdentityRole> roles = new List<IdentityRole>

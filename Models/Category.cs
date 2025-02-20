@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Cs_Hub.Data
+namespace Cs_Hub.Models
 { 
 public class Category
 {
