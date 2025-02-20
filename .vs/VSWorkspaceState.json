@@ -4,9 +4,9 @@
     "\\Controllers",
     "\\Data",
     "\\Models",
-    "\\Views",
+    "\\Services",
     "\\Views\\Shared"
   ],
-  "SelectedNode": "\\Data\\ApplicationDbContext.cs",
+  "SelectedNode": "\\Cs-Hub.sln",
   "PreviewInSolutionExplorer": false
 }

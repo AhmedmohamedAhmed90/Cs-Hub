@@ -34,6 +34,7 @@ public class Resource
 
     public ICollection<ResourceCategory> ResourceCategories { get; set; }
     public ICollection<Comment> Comments { get; set; }
-}
-
+        public ICollection<Review> Reviews { get; set; } = new List<Review>();
     }
+
+}

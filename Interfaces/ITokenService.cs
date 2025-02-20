@@ -1,4 +1,5 @@
-﻿using Cs_Hub.Models;
+﻿using Cs_Hub.Data;
+using Cs_Hub.Models;
 
 namespace Cs_Hub.Interfaces
 {

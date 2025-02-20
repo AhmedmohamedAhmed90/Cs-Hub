@@ -28,7 +28,7 @@ namespace Cs_Hub.Controllers
             try
             {
                 
-                var category = await _DbContext.Categories.FirstOrDefaultAsync(x => x.Id == Id);
+                var category = await _DbContext.Categories.FirstOrDefaultAsync(x => x.CategoryID == Id);
 
                 
                 if (category == null)
@@ -67,7 +67,7 @@ namespace Cs_Hub.Controllers
             try
             {
                 
-                var category = await _DbContext.Categories.FirstOrDefaultAsync(x => x.Id == Id);
+                var category = await _DbContext.Categories.FirstOrDefaultAsync(x => x.CategoryID == Id);
 
                
                 if (category == null)

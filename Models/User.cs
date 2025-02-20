@@ -28,9 +28,11 @@ namespace Cs_Hub.Data
     // Navigation property
     public ICollection<Comment> Comments { get; set; }
     public ICollection<Resource> Resources { get; set; }
+    public ICollection<Review> Reviews { get; set; } = new List<Review>();
+
         //public string password { get; set; }
 
-       
+
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
 
