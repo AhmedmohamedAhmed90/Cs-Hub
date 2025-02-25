@@ -5,18 +5,20 @@ using Cs_Hub.Data;
 using Microsoft.AspNetCore.Identity;
 using Cs_Hub.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
+using System.Threading.Tasks;
+using System.Linq;
 
 namespace Cs_Hub.Controllers
 {
-    public class UserController:Controller
+    [Route("api/users")]  
+    [ApiController]        
+    public class UserController : ControllerBase
     {
-        readonly ApplicationDbContext _DbContext;
-
+        private readonly ApplicationDbContext _DbContext;
         private readonly UserManager<User> _userManager;
         private readonly ITokenService _TokenService;
-
         private readonly SignInManager<User> _signin;
+
         public UserController(ApplicationDbContext DbContext, UserManager<User> userManager, ITokenService TokenService, SignInManager<User> signin)
         {
             _DbContext = DbContext;
@@ -25,116 +27,109 @@ namespace Cs_Hub.Controllers
             _signin = signin;
         }
 
-        public async Task<IActionResult> EditUser(string Id, [FromBody] dynamic formData)
+        [HttpPut("edit-user/{id}")]
+        public async Task<IActionResult> EditUser(string id, [FromBody] EditUserDto formData)
         {
-            User user = _DbContext.Users.Where(x => x.Id == Id).First();
+            var user = await _DbContext.Users.FindAsync(id);
+            if (user == null)
+            {
+                return NotFound(new { message = "User not found" });
+            }
+
             user.Age = formData.Age;
+            user.FullName = formData.FullName;
             user.Address = formData.Address;
 
             await _DbContext.SaveChangesAsync();
 
-            return RedirectToAction("Index", "Home");
-
-
-
+            return Ok(new { message = "User updated successfully", user });
         }
 
-        public async Task<IActionResult> PromoteToAdmin(string Id)
+        [HttpPost("{id}/promote")]
+        public async Task<IActionResult> PromoteToAdmin(string id)
         {
-            var userId = Id;
-            if (string.IsNullOrEmpty(userId))
+            if (string.IsNullOrEmpty(id))
             {
-                return BadRequest("UserId is required");
+                return BadRequest(new { message = "UserId is required" });
             }
 
-            var user = await _userManager.FindByIdAsync(userId);
+            var user = await _userManager.FindByIdAsync(id);
             if (user == null)
             {
-                return NotFound("User not found");
+                return NotFound(new { message = "User not found" });
             }
 
             var currentRoles = await _userManager.GetRolesAsync(user);
             var removeRolesResult = await _userManager.RemoveFromRolesAsync(user, currentRoles);
             if (!removeRolesResult.Succeeded)
             {
-                return StatusCode(500, "Failed to remove current roles");
+                return StatusCode(500, new { message = "Failed to remove current roles" });
             }
 
             var addRoleResult = await _userManager.AddToRoleAsync(user, "Admin");
-            if (addRoleResult.Succeeded)
+            if (!addRoleResult.Succeeded)
             {
-                return RedirectToAction("GetAllUsers");
+                return StatusCode(500, new { message = "Failed to add Admin role" });
             }
-            else
-            {
-                return StatusCode(500, "Failed to add Admin role");
-            }
+
+            return Ok(new { message = "User promoted to Admin successfully" });
         }
 
-
-        [HttpGet]
+        [HttpGet("all-users")]
         public async Task<IActionResult> GetAllUsers()
         {
-
             var users = await _userManager.Users
-             .Select(u => new UserDto
-             {
-                 Username = u.UserName,
-                 Email = u.Email,
-                 Age = u.Age,
-                 Address = u.Address,
-                 Id = u.Id
-             })
-             .ToListAsync();
+                .Select(u => new UserDto
+                {
+                    Username = u.UserName,
+                    Email = u.Email,
+                    Age = u.Age,
+                    Address = u.Address,
+                    Id = u.Id
+                })
+                .ToListAsync();
 
-            return View(users);
-
+            return Ok(users);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("user-by-id/{id}")]
         public async Task<IActionResult> GetUserById(string id)
         {
             if (string.IsNullOrEmpty(id))
             {
-                return BadRequest("User ID is required");
+                return BadRequest(new { message = "User ID is required" });
             }
 
             var user = await _userManager.FindByIdAsync(id);
             if (user == null)
             {
-                return NotFound("User not found");
+                return NotFound(new { message = "User not found" });
             }
 
-            return RedirectToAction("Index", "Home");
-
+            return Ok(user);
         }
 
-
-        [HttpPost]
+        [HttpDelete("delete-user/{id}")]
         public async Task<IActionResult> DeleteUser(string id)
         {
             if (string.IsNullOrEmpty(id))
             {
-                return BadRequest("User ID is required");
+                return BadRequest(new { message = "User ID is required" });
             }
 
             var user = await _userManager.FindByIdAsync(id);
             if (user == null)
             {
-                return NotFound("User not found");
+                return NotFound(new { message = "User not found" });
             }
 
             var result = await _userManager.DeleteAsync(user);
-            
-                return RedirectToAction("GetAllUsers");
-            
+            if (!result.Succeeded)
+            {
+                return StatusCode(500, new { message = "Failed to delete user" });
+            }
+
+            return Ok(new { message = "User deleted successfully" });
         }
-
-
-
-
-
-
-        }
-
+    }
 }

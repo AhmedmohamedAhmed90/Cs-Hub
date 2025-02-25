@@ -327,7 +327,6 @@ C:\Users\ZIAD\Documents\GitHub\Cs-Hub\obj\Debug\net6.0\Cs-Hub.csproj.CoreCompile
 C:\Users\ZIAD\Documents\GitHub\Cs-Hub\obj\Debug\net6.0\Cs-Hub.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\ZIAD\Documents\GitHub\Cs-Hub\obj\Debug\net6.0\Cs-Hub.RazorAssemblyInfo.cache
 C:\Users\ZIAD\Documents\GitHub\Cs-Hub\obj\Debug\net6.0\Cs-Hub.RazorAssemblyInfo.cs
-C:\Users\ZIAD\Documents\GitHub\Cs-Hub\obj\Debug\net6.0\Cs-Hub.sourcelink.json
 C:\Users\ZIAD\Documents\GitHub\Cs-Hub\bin\Debug\net6.0\appsettings.Development.json
 C:\Users\ZIAD\Documents\GitHub\Cs-Hub\bin\Debug\net6.0\appsettings.json
 C:\Users\ZIAD\Documents\GitHub\Cs-Hub\bin\Debug\net6.0\Cs-Hub.staticwebassets.runtime.json
@@ -562,17 +561,12 @@ C:\Users\ZIAD\Documents\GitHub\Cs-Hub\bin\Debug\net6.0\runtimes\win\lib\net6.0\S
 C:\Users\ZIAD\Documents\GitHub\Cs-Hub\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 C:\Users\ZIAD\Documents\GitHub\Cs-Hub\obj\Debug\net6.0\staticwebassets.build.json
 C:\Users\ZIAD\Documents\GitHub\Cs-Hub\obj\Debug\net6.0\staticwebassets.development.json
-C:\Users\ZIAD\Documents\GitHub\Cs-Hub\obj\Debug\net6.0\staticwebassets\msbuild.Cs-Hub.Microsoft.AspNetCore.StaticWebAssets.props
-C:\Users\ZIAD\Documents\GitHub\Cs-Hub\obj\Debug\net6.0\staticwebassets\msbuild.build.Cs-Hub.props
-C:\Users\ZIAD\Documents\GitHub\Cs-Hub\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.Cs-Hub.props
-C:\Users\ZIAD\Documents\GitHub\Cs-Hub\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.Cs-Hub.props
-C:\Users\ZIAD\Documents\GitHub\Cs-Hub\obj\Debug\net6.0\staticwebassets.pack.json
 C:\Users\ZIAD\Documents\GitHub\Cs-Hub\obj\Debug\net6.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\ZIAD\Documents\GitHub\Cs-Hub\obj\Debug\net6.0\scopedcss\bundle\Cs-Hub.styles.css
 C:\Users\ZIAD\Documents\GitHub\Cs-Hub\obj\Debug\net6.0\scopedcss\projectbundle\Cs-Hub.bundle.scp.css
-C:\Users\ZIAD\Documents\GitHub\Cs-Hub\obj\Debug\net6.0\Cs-Hub.csproj.Up2Date
 C:\Users\ZIAD\Documents\GitHub\Cs-Hub\obj\Debug\net6.0\Cs-Hub.dll
 C:\Users\ZIAD\Documents\GitHub\Cs-Hub\obj\Debug\net6.0\refint\Cs-Hub.dll
 C:\Users\ZIAD\Documents\GitHub\Cs-Hub\obj\Debug\net6.0\Cs-Hub.pdb
 C:\Users\ZIAD\Documents\GitHub\Cs-Hub\obj\Debug\net6.0\Cs-Hub.genruntimeconfig.cache
 C:\Users\ZIAD\Documents\GitHub\Cs-Hub\obj\Debug\net6.0\ref\Cs-Hub.dll
+C:\Users\ZIAD\Documents\GitHub\Cs-Hub\obj\Debug\net6.0\Cs-Hub.csproj.CopyComplete
