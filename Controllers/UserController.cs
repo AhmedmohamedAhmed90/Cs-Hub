@@ -36,7 +36,7 @@ namespace Cs_Hub.Controllers
                 return NotFound(new { message = "User not found" });
             }
 
-            user.Age = formData.Age;
+            user.Age = (int)formData.Age;
             user.FullName = formData.FullName;
             user.Address = formData.Address;
 
@@ -83,7 +83,7 @@ namespace Cs_Hub.Controllers
                 {
                     Username = u.UserName,
                     Email = u.Email,
-                    Age = u.Age,
+                    Age = (int)u.Age,
                     Address = u.Address,
                     Id = u.Id
                 })

@@ -4,131 +4,109 @@ using Microsoft.EntityFrameworkCore;
 using Cs_Hub.Dtos;
 using Cs_Hub.Interfaces;
 using Cs_Hub.Models;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Cs_Hub.Data;
+using System;
+using System.Threading.Tasks;
 
 namespace Cs_Hub.Controllers
 {
-    public class AccountController : Controller
+    [Route("api/account")]  
+    [ApiController]        
+    public class AccountController : ControllerBase
     {
-        private readonly UserManager<User> visitor;
-        private readonly ITokenService _TokenService;
+        private readonly UserManager<User> _userManager;
+        private readonly ITokenService _tokenService;
+        private readonly SignInManager<User> _signInManager;
 
-        private readonly SignInManager<User> _signin;
-        public AccountController(UserManager<User> userManager, ITokenService TokenService, SignInManager<User> signin)
+        public AccountController(UserManager<User> userManager, ITokenService tokenService, SignInManager<User> signInManager)
         {
-            visitor = userManager;
-            _TokenService = TokenService;
-            _signin = signin;
-
+            _userManager = userManager;
+            _tokenService = tokenService;
+            _signInManager = signInManager;
         }
 
-        //[HttpPost("login")]
-
-        public IActionResult Login()
-        {
-            return View();
-        }
-
-        public IActionResult Register()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Login(Login login)
+        [HttpPost("login-user")]
+        public async Task<IActionResult> Login([FromBody] Login login)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return BadRequest(new { message = "Invalid login request" });
             }
-            var user = await visitor.Users.FirstOrDefaultAsync(x => x.Email == login.Email!.ToLower());
 
-            if (user == null) return Unauthorized("the user not found");
+            var user = await _userManager.FindByEmailAsync(login.Email!.ToLower());
 
-            var result = await _signin.CheckPasswordSignInAsync(user, login.Password!, false);
+            if (user == null) 
+                return NotFound(new { message = "User not found" });
 
-            if (!result.Succeeded) return Unauthorized("Invalid UserName and / or password");
+            var result = await _signInManager.CheckPasswordSignInAsync(user, login.Password!, false);
 
-            var roles = await visitor.GetRolesAsync(user);
+            if (!result.Succeeded) 
+                return Unauthorized(new { message = "Incorrect password" });
 
+            var roles = await _userManager.GetRolesAsync(user);
 
-            /* return Ok(
-                 new NewUser
-                 {
-                     UserName = user.UserName,
-                     Email = user.Email!,
-                     Role = roles[0],
-                     isAdmin = roles[0] == "Admin" ? true : false,
-                     Id = user.Id,
-                     Token = await _TokenService.CreateToken(user)
-                 }
-             );*/
-            return RedirectToAction("Privacy", "Home");
+            return Ok(new NewUser
+            {
+                FullName = user.FullName,
+                Email = user.Email!,
+                Role = roles.Count > 0 ? roles[0] : "User",
+                isAdmin = roles.Contains("Admin"),
+                Id = user.Id,
+                Age=(int)user.Age,
+                Address=user.Address,
+                Token = await _tokenService.CreateToken(user)
+            });
         }
 
-        //[HttpPost("register")]
-        [HttpPost]
-        public async Task<IActionResult> Register( Register registerDto)
+[HttpPost("register")]
+public async Task<IActionResult> Register(Register registerDto)
+{
+    Console.WriteLine("Registering user...");
+    Console.WriteLine(registerDto.FullName);
+
+    try
+    {
+        if (!ModelState.IsValid)
         {
-            Console.WriteLine("useeeeeeeeeeeeeeeeeeeeeeeer");
-            Console.WriteLine(registerDto.Username);
-            try
-            {
-              
-                var User = new User
-                {
-                   
-                    UserName = registerDto.Username,
-                    Email = registerDto.Email,
-                    
-                    Address = registerDto.Address,
-
-                    Age=registerDto.Age,
-                   
-                    PasswordHash = registerDto.Password,
-                   
-                };
-                var createUser = await visitor.CreateAsync(User, registerDto.Password!);
-                if (createUser.Succeeded)
-                {
-                    var Result = await visitor.AddToRoleAsync(User, "User");
-                    if (Result.Succeeded)
-                    {
-                        /*return Ok(new NewUser
-                        {
-                            Id = User.Id,
-                            Email = User.Email!,
-                            Role = "User",
-                            isAdmin = false,
-                  
-                            Token = await _TokenService.CreateToken(User)
-                        });*/
-                        return RedirectToAction("Login", "Account");
-                    }
-                    else
-                    {
-                        return StatusCode(500, Result.Errors);
-                    }
-                }
-                else
-                {
-                    return StatusCode(500, createUser.Errors);
-                }
-            }
-            catch (System.Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
+            return BadRequest(new { message = "Invalid registration data", errors = ModelState.Values.SelectMany(v => v.Errors) });
         }
-     
-       // [HttpPost("logout")]
+
+        var user = new User
+        {
+            FullName = registerDto.FullName,
+            UserName = registerDto.Email?.Split('@')[0], // Use email prefix as username
+            Email = registerDto.Email,
+            Address = registerDto.Address,
+            Age =(int) registerDto.Age  
+        };
+
+        var createUser = await _userManager.CreateAsync(user, registerDto.Password);
+        if (!createUser.Succeeded)
+        {
+            return BadRequest(new { message = "User registration failed", errors = createUser.Errors });
+        }
+
+        var roleResult = await _userManager.AddToRoleAsync(user, "User");
+        if (!roleResult.Succeeded)
+        {
+            return StatusCode(500, new { message = "Role assignment failed", errors = roleResult.Errors });
+        }
+
+        return Ok(new { message = "User registered successfully" });
+    }
+    catch (Exception ex)
+    {
+        return StatusCode(500, new { message = "Internal server error", error = ex.Message });
+    }
+}
+
+
+
+        [HttpPost("logout")]
         public async Task<IActionResult> Logout()
         {
-            await _signin.SignOutAsync();
-            return Ok("User logged out successfully");
+            await _signInManager.SignOutAsync();
+            return Ok(new { message = "User logged out successfully" });
         }
-
-
     }
 }

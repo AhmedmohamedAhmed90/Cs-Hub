@@ -4,6 +4,7 @@ using Cs_Hub.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cs_Hub.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250225171847_updateduser")]
+    partial class updateduser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -178,9 +180,10 @@ namespace Cs_Hub.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Address")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Age")
+                    b.Property<int>("Age")
                         .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -191,6 +194,7 @@ namespace Cs_Hub.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
@@ -276,15 +280,15 @@ namespace Cs_Hub.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "f5ec0769-0a0e-40ec-9698-e5667c862915",
-                            ConcurrencyStamp = "ac7bdf8b-a5fd-4bc1-a0d6-a63cf6e01279",
+                            Id = "6863a757-8944-4b12-b499-59bd8c020520",
+                            ConcurrencyStamp = "f16f3484-4c83-422d-8c23-dde15ca6ab16",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "551d186e-bb6c-4e13-9ba6-ddb9c3e61597",
-                            ConcurrencyStamp = "f8dc04d0-0696-4e54-9393-a6c069a5f3fd",
+                            Id = "5ceeead2-608b-48ae-8e68-cb573fc7ffd5",
+                            ConcurrencyStamp = "91fe959a-caa3-4b41-86d2-c023245625c2",
                             Name = "User",
                             NormalizedName = "USER"
                         });

@@ -5,7 +5,7 @@ namespace Cs_Hub.Dtos
     public class Register
     {
 
-        public string? Username { get; set; }
+        public string? FullName { get; set; }
 
         [Required]
         [EmailAddress]
