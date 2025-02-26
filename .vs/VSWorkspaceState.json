@@ -1,16 +1,16 @@
 {
   "ExpandedNodes": [
     "",
+    "\\Controllers",
     "\\Data",
-    "\\Interfaces",
-    "\\Models",
-    "\\Services",
+    "\\Dtos",
+    "\\obj",
     "\\Views",
     "\\Views\\Account",
     "\\Views\\Home",
     "\\Views\\Shared",
     "\\wwwroot"
   ],
-  "SelectedNode": "\\Views\\CreateResourse.cshtml",
+  "SelectedNode": "\\Controllers\\CategoryController.cs",
   "PreviewInSolutionExplorer": false
 }

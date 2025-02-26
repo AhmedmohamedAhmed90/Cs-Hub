@@ -14,6 +14,6 @@ public class Category
     public string Description { get; set; }
 
     // Many-to-Many Relationship
-    public ICollection<ResourceCategory> ResourceCategories { get; set; }
+    public ICollection<ResourceCategory>? ResourceCategories { get; set; }
 }
     }
