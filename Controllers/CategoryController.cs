@@ -47,8 +47,9 @@ namespace Cs_Hub.Controllers
                 }
                
 
-                 category.Name = newdata?.name ?? category.Name;
-                 category.Description = newdata?.description ?? category.Description;
+                 category.Name = newdata?.Name ?? category.Name;
+                 category.Description = newdata?.Description ?? category.Description;
+
 
 
                 
