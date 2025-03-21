@@ -83,6 +83,9 @@ namespace Cs_Hub.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ResourceID"), 1L, 1);
 
+                    b.Property<int>("CategoryID")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -91,8 +94,8 @@ namespace Cs_Hub.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FilePath")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("ResourceType")
                         .IsRequired()
@@ -110,8 +113,8 @@ namespace Cs_Hub.Migrations
                         .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("URL")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(2083)
+                        .HasColumnType("nvarchar(2083)");
 
                     b.Property<string>("UserID")
                         .IsRequired()
@@ -119,24 +122,11 @@ namespace Cs_Hub.Migrations
 
                     b.HasKey("ResourceID");
 
+                    b.HasIndex("CategoryID");
+
                     b.HasIndex("UserID");
 
                     b.ToTable("Resources");
-                });
-
-            modelBuilder.Entity("Cs_Hub.Models.ResourceCategory", b =>
-                {
-                    b.Property<int>("ResourceID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CategoryID")
-                        .HasColumnType("int");
-
-                    b.HasKey("ResourceID", "CategoryID");
-
-                    b.HasIndex("CategoryID");
-
-                    b.ToTable("ResourceCategories");
                 });
 
             modelBuilder.Entity("Cs_Hub.Models.Review", b =>
@@ -276,15 +266,15 @@ namespace Cs_Hub.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "f4b410a8-ca48-4971-a1ae-c26f5bb36eea",
-                            ConcurrencyStamp = "9535b8c4-cf59-420a-a25f-b162187e6500",
+                            Id = "cbdff158-1c6b-49f6-95a7-bfacbae160e8",
+                            ConcurrencyStamp = "67cd0bc9-d8ae-44c6-8b3f-dfd751b5bbe0",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "a1df1881-4a18-4b71-aac4-233d9f329e48",
-                            ConcurrencyStamp = "e2ae3441-8a1a-465b-83f3-772f6c6301a4",
+                            Id = "3ea0984c-7f71-400f-9cbe-a5ef079ba70b",
+                            ConcurrencyStamp = "3eca5538-2411-4e02-bcef-708fb28b07b8",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -417,32 +407,21 @@ namespace Cs_Hub.Migrations
 
             modelBuilder.Entity("Cs_Hub.Models.Resource", b =>
                 {
+                    b.HasOne("Cs_Hub.Models.Category", "Category")
+                        .WithMany("Resources")
+                        .HasForeignKey("CategoryID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Cs_Hub.Models.User", "User")
                         .WithMany("Resources")
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Cs_Hub.Models.ResourceCategory", b =>
-                {
-                    b.HasOne("Cs_Hub.Models.Category", "Category")
-                        .WithMany("ResourceCategories")
-                        .HasForeignKey("CategoryID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Cs_Hub.Models.Resource", "Resource")
-                        .WithMany("ResourceCategories")
-                        .HasForeignKey("ResourceID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Category");
 
-                    b.Navigation("Resource");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Cs_Hub.Models.Review", b =>
@@ -517,14 +496,12 @@ namespace Cs_Hub.Migrations
 
             modelBuilder.Entity("Cs_Hub.Models.Category", b =>
                 {
-                    b.Navigation("ResourceCategories");
+                    b.Navigation("Resources");
                 });
 
             modelBuilder.Entity("Cs_Hub.Models.Resource", b =>
                 {
                     b.Navigation("Comments");
-
-                    b.Navigation("ResourceCategories");
 
                     b.Navigation("Reviews");
                 });

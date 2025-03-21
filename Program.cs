@@ -9,8 +9,11 @@ using Cs_Hub.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
+// dh mvc bs.
+//builder.Services.AddControllersWithViews();
+
+builder.Services.AddControllers(); 
+
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
@@ -60,6 +63,12 @@ builder.Services.AddAuthorization(options =>
 
 });
 
+builder.Services.AddSingleton<IWebHostEnvironment>(builder.Environment);
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+
 
 var app = builder.Build();
 
@@ -69,17 +78,36 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
+   
 }
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
+app.UseSwagger();
+app.UseSwaggerUI();
+
 app.UseRouting();
 
+//app.UseAuthentication();  // <---- Ensure JWT Authentication is enabled
 app.UseAuthorization();
 
-app.MapControllerRoute(
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers(); // Ensure this is here
+});
+
+
+app.UseStaticFiles(); // Allows serving files from wwwroot
+
+
+//dh mvc bs
+
+/*
+ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+*/
 
 app.Run();

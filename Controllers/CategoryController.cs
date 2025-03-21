@@ -111,6 +111,7 @@ namespace Cs_Hub.Controllers
             }
         }
 
+        /*
         [HttpPost("add-resource/{ResourceId}/{CategoryId}")]
         public async Task<IActionResult> AddResourceToCategory(int ResourceId, int CategoryId)
         {
@@ -133,7 +134,7 @@ namespace Cs_Hub.Controllers
 
             return Ok("Resource added to category successfully.");
         }
-
+        */
 
 
   

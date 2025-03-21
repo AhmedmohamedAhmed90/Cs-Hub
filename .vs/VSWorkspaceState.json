@@ -1,16 +1,16 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Controllers",
-    "\\Data",
     "\\Dtos",
+    "\\Models",
     "\\obj",
     "\\Views",
     "\\Views\\Account",
     "\\Views\\Home",
     "\\Views\\Shared",
-    "\\wwwroot"
+    "\\wwwroot",
+    "\\wwwroot\\uploads"
   ],
-  "SelectedNode": "\\Controllers\\CategoryController.cs",
+  "SelectedNode": "\\wwwroot\\uploads\\bde2aca8-fc7b-4af4-9868-2accdc2861a1_My Portfolio (1).pdf",
   "PreviewInSolutionExplorer": false
 }
