@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "uO5dgrp+FYL+3pWgm/GiULAsr0eqM6R/qGX2d22G+lQ+r73tvlHzVKcjUhnVNIq3MO7ztKzdjzjyyXqZIrH4rw==",
+  "dgSpecHash": "O7MgI6yR26iZKaphMVMIUmZlfM+cBnII9h2QH/MnIBE9MJf7RdsZvsnI5cgU6PsLZpdVYEgO2i64vejrRvexHg==",
   "success": true,
   "projectFilePath": "C:\\Users\\ZIAD\\Documents\\GitHub\\Cs-Hub\\Cs-Hub.csproj",
   "expectedPackageFiles": [
@@ -231,11 +231,7 @@
     "C:\\Users\\ZIAD\\.nuget\\packages\\system.threading.timer\\4.3.0\\system.threading.timer.4.3.0.nupkg.sha512",
     "C:\\Users\\ZIAD\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512",
     "C:\\Users\\ZIAD\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
-    "C:\\Users\\ZIAD\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\ZIAD\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.31\\microsoft.aspnetcore.app.ref.6.0.31.nupkg.sha512",
-    "C:\\Users\\ZIAD\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.31\\microsoft.netcore.app.host.win-x64.6.0.31.nupkg.sha512",
-    "C:\\Users\\ZIAD\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.31\\microsoft.netcore.app.ref.6.0.31.nupkg.sha512",
-    "C:\\Users\\ZIAD\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.31\\microsoft.windowsdesktop.app.ref.6.0.31.nupkg.sha512"
+    "C:\\Users\\ZIAD\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512"
   ],
   "logs": []
 }
