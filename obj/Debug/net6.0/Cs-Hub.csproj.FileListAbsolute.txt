@@ -574,10 +574,4 @@ C:\Users\ZIAD\Documents\GitHub\Cs-Hub\bin\Debug\net6.0\Swashbuckle.AspNetCore.Sw
 C:\Users\ZIAD\Documents\GitHub\Cs-Hub\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\ZIAD\Documents\GitHub\Cs-Hub\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\Users\ZIAD\Documents\GitHub\Cs-Hub\obj\Debug\net6.0\Cs-Hub.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\ZIAD\Documents\GitHub\Cs-Hub\obj\Debug\net6.0\Cs-Hub.sourcelink.json
-C:\Users\ZIAD\Documents\GitHub\Cs-Hub\obj\Debug\net6.0\staticwebassets\msbuild.Cs-Hub.Microsoft.AspNetCore.StaticWebAssets.props
-C:\Users\ZIAD\Documents\GitHub\Cs-Hub\obj\Debug\net6.0\staticwebassets\msbuild.build.Cs-Hub.props
-C:\Users\ZIAD\Documents\GitHub\Cs-Hub\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.Cs-Hub.props
-C:\Users\ZIAD\Documents\GitHub\Cs-Hub\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.Cs-Hub.props
-C:\Users\ZIAD\Documents\GitHub\Cs-Hub\obj\Debug\net6.0\staticwebassets.pack.json
-C:\Users\ZIAD\Documents\GitHub\Cs-Hub\obj\Debug\net6.0\Cs-Hub.csproj.Up2Date
+C:\Users\ZIAD\Documents\GitHub\Cs-Hub\obj\Debug\net6.0\Cs-Hub.csproj.CopyComplete

@@ -27,38 +27,39 @@ namespace Cs_Hub.Controllers
              _env = env;
         }
 
-    /*    public async Task<IActionResult> Index()
-        {
-            var resources = await _DbContext.Resources
-                .Include(r => r.ResourceCategories)
-                .ThenInclude(rc => rc.Category)
-                .ToListAsync();
-            return View(resources);
-        }
-
-        public async Task<IActionResult> Details(int id)
-        {
-            var resource = await _DbContext.Resources
-                .Include(r => r.ResourceCategories)
-                .ThenInclude(rc => rc.Category)
-                .FirstOrDefaultAsync(r => r.ResourceID == id);
-
-            if (resource == null)
+        //119944697
+        /*    public async Task<IActionResult> Index()
             {
-                return NotFound();
+                var resources = await _DbContext.Resources
+                    .Include(r => r.ResourceCategories)
+                    .ThenInclude(rc => rc.Category)
+                    .ToListAsync();
+                return View(resources);
             }
 
-            return View(resource);
-        }
-    */
- /*   [HttpPost("uploads")]
-public async Task<IActionResult> UploadResource()
-{
-            Console.WriteLine("testtttttttttttttttttt");
-            return Ok();
-            }*/
+            public async Task<IActionResult> Details(int id)
+            {
+                var resource = await _DbContext.Resources
+                    .Include(r => r.ResourceCategories)
+                    .ThenInclude(rc => rc.Category)
+                    .FirstOrDefaultAsync(r => r.ResourceID == id);
 
-[HttpPost("upload")]
+                if (resource == null)
+                {
+                    return NotFound();
+                }
+
+                return View(resource);
+            }
+        */
+        /*   [HttpPost("uploads")]
+       public async Task<IActionResult> UploadResource()
+       {
+                   Console.WriteLine("testtttttttttttttttttt");
+                   return Ok();
+                   }*/
+
+        [HttpPost("upload")]
 public async Task<IActionResult> UploadResource([FromForm] ResourceUpload model)
 {
     try
@@ -121,97 +122,162 @@ public async Task<IActionResult> UploadResource([FromForm] ResourceUpload model)
 }
 
 
+        [HttpGet("get_all_resources")]
+       
+        public  async Task<IActionResult> GetAllResources()
+        {
+            var resources = await _DbContext.Resources.ToListAsync();
+
+            if (resources == null)
+            {
+                return NotFound(new { message = "the resources are not found" });
+            }
+            return Ok(new { message = "resources found", resources });
+
+        }
 
 
+        [HttpGet("view_resources")]
 
+        public async Task<IActionResult> ViewAllResources()
+        {
 
-   /*     public async Task<IActionResult> Edit(int id)
+            var resources = await _DbContext.Resources.Where(r => r.Status == "Approved").ToListAsync();
+
+            if (!resources.Any())
+            {
+                return NotFound("No approved resources");
+            }
+
+            return Ok(new { message = "Resources found", resources });
+        }
+
+        [HttpPut("approve_resource/{id}")]
+
+        public async Task<IActionResult> ApproveResource([FromRoute] int id)
         {
             var resource = await _DbContext.Resources.FindAsync(id);
             if (resource == null)
             {
-                return NotFound();
+                return NotFound("resource is not found");
+
             }
-            ViewData["Categories"] = new SelectList(_DbContext.Categories, "CategoryID", "Name");
-            return View(resource);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ResourceID,Name,Description,Link,Image,Video,Status")] Resource resource, int[] CategoryIDs)
-        {
-            if (id != resource.ResourceID)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _DbContext.Resources.Update(resource);
-                    await _DbContext.SaveChangesAsync();
-
-                    var existingCategories = _DbContext.ResourceCategories.Where(rc => rc.ResourceID == id);
-                    _DbContext.ResourceCategories.RemoveRange(existingCategories);
-
-                    foreach (var categoryId in CategoryIDs)
-                    {
-                        _DbContext.ResourceCategories.Add(new ResourceCategory { ResourceID = resource.ResourceID, CategoryID = categoryId });
-                    }
-                    await _DbContext.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ResourceExists(resource.ResourceID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["Categories"] = new SelectList(_DbContext.Categories, "CategoryID", "Name");
-            return View(resource);
-        }
-
-        public async Task<IActionResult> Delete(int id)
-        {
-            var resource = await _DbContext.Resources
-                .Include(r => r.ResourceCategories)
-                .ThenInclude(rc => rc.Category)
-                .FirstOrDefaultAsync(r => r.ResourceID == id);
-            if (resource == null)
-            {
-                return NotFound();
-            }
-            return View(resource);
-        }
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var resource = await _DbContext.Resources.FindAsync(id);
-            if (resource == null)
-            {
-                return NotFound();
-            }
-
-            var associatedCategories = _DbContext.ResourceCategories.Where(rc => rc.ResourceID == id);
-            _DbContext.ResourceCategories.RemoveRange(associatedCategories);
-            _DbContext.Resources.Remove(resource);
+            resource.Status = "Approved";
             await _DbContext.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            return Ok(new { message = "resource Approved Successfully" });
+
         }
 
-        private bool ResourceExists(int id)
+
+        [HttpDelete("delete_resource/{id}")]
+
+        public async Task<IActionResult> DeleteResource([FromRoute] int id)
         {
-            return _DbContext.Resources.Any(e => e.ResourceID == id);
+            var resource = await _DbContext.Resources.FindAsync(id);
+            if (resource == null)
+            {
+                return NotFound("resource is not found");
+
+            }
+             _DbContext.Remove(resource);
+            await _DbContext.SaveChangesAsync();
+
+            return Ok(new { message = "resource Deleted Successfully" });
+
         }
-   */
+
+
+
+
+
+        /*     public async Task<IActionResult> Edit(int id)
+             {
+                 var resource = await _DbContext.Resources.FindAsync(id);
+                 if (resource == null)
+                 {
+                     return NotFound();
+                 }
+                 ViewData["Categories"] = new SelectList(_DbContext.Categories, "CategoryID", "Name");
+                 return View(resource);
+             }
+
+             [HttpPost]
+             [ValidateAntiForgeryToken]
+             public async Task<IActionResult> Edit(int id, [Bind("ResourceID,Name,Description,Link,Image,Video,Status")] Resource resource, int[] CategoryIDs)
+             {
+                 if (id != resource.ResourceID)
+                 {
+                     return NotFound();
+                 }
+
+                 if (ModelState.IsValid)
+                 {
+                     try
+                     {
+                         _DbContext.Resources.Update(resource);
+                         await _DbContext.SaveChangesAsync();
+
+                         var existingCategories = _DbContext.ResourceCategories.Where(rc => rc.ResourceID == id);
+                         _DbContext.ResourceCategories.RemoveRange(existingCategories);
+
+                         foreach (var categoryId in CategoryIDs)
+                         {
+                             _DbContext.ResourceCategories.Add(new ResourceCategory { ResourceID = resource.ResourceID, CategoryID = categoryId });
+                         }
+                         await _DbContext.SaveChangesAsync();
+                     }
+                     catch (DbUpdateConcurrencyException)
+                     {
+                         if (!ResourceExists(resource.ResourceID))
+                         {
+                             return NotFound();
+                         }
+                         else
+                         {
+                             throw;
+                         }
+                     }
+                     return RedirectToAction(nameof(Index));
+                 }
+                 ViewData["Categories"] = new SelectList(_DbContext.Categories, "CategoryID", "Name");
+                 return View(resource);
+             }
+
+             public async Task<IActionResult> Delete(int id)
+             {
+                 var resource = await _DbContext.Resources
+                     .Include(r => r.ResourceCategories)
+                     .ThenInclude(rc => rc.Category)
+                     .FirstOrDefaultAsync(r => r.ResourceID == id);
+                 if (resource == null)
+                 {
+                     return NotFound();
+                 }
+                 return View(resource);
+             }
+
+             [HttpPost, ActionName("Delete")]
+             [ValidateAntiForgeryToken]
+             public async Task<IActionResult> DeleteConfirmed(int id)
+             {
+                 var resource = await _DbContext.Resources.FindAsync(id);
+                 if (resource == null)
+                 {
+                     return NotFound();
+                 }
+
+                 var associatedCategories = _DbContext.ResourceCategories.Where(rc => rc.ResourceID == id);
+                 _DbContext.ResourceCategories.RemoveRange(associatedCategories);
+                 _DbContext.Resources.Remove(resource);
+                 await _DbContext.SaveChangesAsync();
+                 return RedirectToAction(nameof(Index));
+             }
+
+             private bool ResourceExists(int id)
+             {
+                 return _DbContext.Resources.Any(e => e.ResourceID == id);
+             }
+        */
     }
 }
