@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "8wR4eo1JrmwpCV7yTCd7z+ORgr0mMKnSvAAOs1dJQAM=",
+  "Hash": "ROAeZGX7zqAXiW6ycAkZIuwYkVWQq66a2jS1QeR5ows=",
   "Source": "Cs-Hub",
   "BasePath": "_content/Cs-Hub",
   "Mode": "Default",
@@ -1069,6 +1069,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Identity": "C:\\Users\\ZIAD\\Documents\\GitHub\\Cs-Hub\\wwwroot\\uploads\\310885f5-5827-4c14-bde4-b1533d7e1804_Gmail - Confirmation of Website Development Agreement.pdf",
+      "SourceId": "Cs-Hub",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\ZIAD\\Documents\\GitHub\\Cs-Hub\\wwwroot\\",
+      "BasePath": "_content/Cs-Hub",
+      "RelativePath": "uploads/310885f5-5827-4c14-bde4-b1533d7e1804_Gmail - Confirmation of Website Development Agreement.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\310885f5-5827-4c14-bde4-b1533d7e1804_Gmail - Confirmation of Website Development Agreement.pdf"
+    },
+    {
+      "Identity": "C:\\Users\\ZIAD\\Documents\\GitHub\\Cs-Hub\\wwwroot\\uploads\\65fe4738-88ae-4b72-bf14-b0d9989dcedd_L0_COMMANDS_LIST (1).pdf",
+      "SourceId": "Cs-Hub",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\ZIAD\\Documents\\GitHub\\Cs-Hub\\wwwroot\\",
+      "BasePath": "_content/Cs-Hub",
+      "RelativePath": "uploads/65fe4738-88ae-4b72-bf14-b0d9989dcedd_L0_COMMANDS_LIST (1).pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\65fe4738-88ae-4b72-bf14-b0d9989dcedd_L0_COMMANDS_LIST (1).pdf"
     },
     {
       "Identity": "C:\\Users\\ZIAD\\Documents\\GitHub\\Cs-Hub\\wwwroot\\uploads\\bde2aca8-fc7b-4af4-9868-2accdc2861a1_My Portfolio (1).pdf",
