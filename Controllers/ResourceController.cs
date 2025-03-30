@@ -126,8 +126,11 @@ public async Task<IActionResult> UploadResource([FromForm] ResourceUpload model)
        
         public  async Task<IActionResult> GetAllResources()
         {
-            var resources = await _DbContext.Resources.ToListAsync();
-
+            var resources = await _DbContext.Resources.Include(r => r.Reviews)    // Load reviews
+    .Include(r => r.Comments)   // Load comments
+    .Include(r => r.Category)   // Load category
+    .Include(r => r.User)       // Load user details
+    .ToListAsync();
             if (resources == null)
             {
                 return NotFound(new { message = "the resources are not found" });
@@ -142,8 +145,11 @@ public async Task<IActionResult> UploadResource([FromForm] ResourceUpload model)
         public async Task<IActionResult> ViewAllResources()
         {
 
-            var resources = await _DbContext.Resources.Where(r => r.Status == "Approved").ToListAsync();
-
+            var resources = await _DbContext.Resources.Where(r => r.Status == "Approved").Include(r => r.Reviews)    // Load reviews
+    .Include(r => r.Comments)   // Load comments
+    .Include(r => r.Category)   // Load category
+    .Include(r => r.User)       // Load user details
+    .ToListAsync();
             if (!resources.Any())
             {
                 return NotFound("No approved resources");
@@ -186,6 +192,26 @@ public async Task<IActionResult> UploadResource([FromForm] ResourceUpload model)
             return Ok(new { message = "resource Deleted Successfully" });
 
         }
+
+
+        [HttpGet("get_resource/{id}")]
+        public async Task<IActionResult> GetResource([FromRoute] int id)
+        {
+            var resource = await _DbContext.Resources
+                .Include(r => r.Reviews)    // Load reviews
+                .Include(r => r.Comments)   // Load comments
+                .Include(r => r.Category)   // Load category
+                .Include(r => r.User)       // Load user details
+                .FirstOrDefaultAsync(r => r.ResourceID == id);
+
+            if (resource == null)
+            {
+                return NotFound(new { message = "Resource not found" });
+            }
+
+            return Ok(new { message = "Resource found", resource });
+        }
+
 
 
 
