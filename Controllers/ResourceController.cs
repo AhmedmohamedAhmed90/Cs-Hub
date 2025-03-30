@@ -116,47 +116,114 @@ public async Task<IActionResult> UploadResource([FromForm] ResourceUpload model)
     }
     catch (Exception ex)
     {
-        Console.WriteLine($"❌ ERROR: {ex.Message}");
+        Console.WriteLine($" ERROR: {ex.Message}");
         return StatusCode(500, new { error = "Internal Server Error", details = ex.Message });
     }
 }
 
 
         [HttpGet("get_all_resources")]
-       
-        public  async Task<IActionResult> GetAllResources()
+        public async Task<IActionResult> GetAllResources()
         {
-            var resources = await _DbContext.Resources.Include(r => r.Reviews)    // Load reviews
-    .Include(r => r.Comments)   // Load comments
-    .Include(r => r.Category)   // Load category
-    .Include(r => r.User)       // Load user details
-    .ToListAsync();
-            if (resources == null)
-            {
-                return NotFound(new { message = "the resources are not found" });
-            }
-            return Ok(new { message = "resources found", resources });
+            var resources = await _DbContext.Resources
+                .Include(r => r.Reviews)
+                .Include(r => r.Comments)
+                .Include(r => r.Category)
+                .Include(r => r.User)
+                .Select(r => new
+                {
+                    r.ResourceID,
+                    r.Title,
+                    r.Description,
+                    r.ResourceType,
+                    r.URL,
+                    r.FilePath,
+                    r.Status,
+                    r.CreatedAt,
+                    User = new
+                    {
+                        r.User.Id,
+                        r.User.FullName,
+                        r.User.Email
+                    },
+                    Category = new
+                    {
+                        r.Category.CategoryID,
+                        r.Category.Name
+                    },
+                    Reviews = r.Reviews.Select(review => new
+                    {
+                        review.ReviewID,
+                        review.Rating,
+                        review.CreatedAt
+                    }),
+                    Comments = r.Comments.Select(comment => new
+                    {
+                        comment.CommentID,
+                        comment.Content,
+                        comment.CreatedAt
+                    })
+                })
+                .ToListAsync();
 
+            return Ok(new { message = "Resources found", resources });
         }
 
 
-        [HttpGet("view_resources")]
 
+        [HttpGet("view_resources")]
         public async Task<IActionResult> ViewAllResources()
         {
+            var resources = await _DbContext.Resources
+                .Where(r => r.Status == "Approved")
+                .Include(r => r.Reviews)
+                .Include(r => r.Comments)
+                .Include(r => r.Category)
+                .Include(r => r.User)
+                .Select(r => new
+                {
+                    r.ResourceID,
+                    r.Title,
+                    r.Description,
+                    r.ResourceType,
+                    r.URL,
+                    r.FilePath,
+                    r.Status,
+                    r.CreatedAt,
+                    User = new
+                    {
+                        r.User.Id,
+                        r.User.FullName,
+                        r.User.Email
+                    },
+                    Category = new
+                    {
+                        r.Category.CategoryID,
+                        r.Category.Name
+                    },
+                    Reviews = r.Reviews.Select(review => new
+                    {
+                        review.ReviewID,
+                        review.Rating,
+                        review.CreatedAt
+                    }),
+                    Comments = r.Comments.Select(comment => new
+                    {
+                        comment.CommentID,
+                        comment.Content,
+                        comment.CreatedAt
+                    })
+                })
+                .ToListAsync();
 
-            var resources = await _DbContext.Resources.Where(r => r.Status == "Approved").Include(r => r.Reviews)    // Load reviews
-    .Include(r => r.Comments)   // Load comments
-    .Include(r => r.Category)   // Load category
-    .Include(r => r.User)       // Load user details
-    .ToListAsync();
             if (!resources.Any())
             {
-                return NotFound("No approved resources");
+                return NotFound(new { message = "No approved resources" });
             }
 
             return Ok(new { message = "Resources found", resources });
         }
+
 
         [HttpPut("approve_resource/{id}")]
 
@@ -198,11 +265,46 @@ public async Task<IActionResult> UploadResource([FromForm] ResourceUpload model)
         public async Task<IActionResult> GetResource([FromRoute] int id)
         {
             var resource = await _DbContext.Resources
-                .Include(r => r.Reviews)    // Load reviews
-                .Include(r => r.Comments)   // Load comments
-                .Include(r => r.Category)   // Load category
-                .Include(r => r.User)       // Load user details
-                .FirstOrDefaultAsync(r => r.ResourceID == id);
+                .Include(r => r.Reviews)
+                .Include(r => r.Comments)
+                .Include(r => r.Category)
+                .Include(r => r.User)
+                .Where(r => r.ResourceID == id)
+                .Select(r => new
+                {
+                    r.ResourceID,
+                    r.Title,
+                    r.Description,
+                    r.ResourceType,
+                    r.URL,
+                    r.FilePath,
+                    r.Status,
+                    r.CreatedAt,
+                    User = new
+                    {
+                        r.User.Id,
+                        r.User.FullName,
+                        r.User.Email
+                    },
+                    Category = new
+                    {
+                        r.Category.CategoryID,
+                        r.Category.Name
+                    },
+                    Reviews = r.Reviews.Select(review => new
+                    {
+                        review.ReviewID,
+                        review.Rating,
+                        review.CreatedAt
+                    }),
+                    Comments = r.Comments.Select(comment => new
+                    {
+                        comment.CommentID,
+                        comment.Content,
+                        comment.CreatedAt
+                    })
+                })
+                .FirstOrDefaultAsync();
 
             if (resource == null)
             {
@@ -213,6 +315,39 @@ public async Task<IActionResult> UploadResource([FromForm] ResourceUpload model)
         }
 
 
+        [HttpPut("update_resource/{id}")]
+        public async Task<IActionResult> UpdateResource(int id, [FromForm] ResourceUpload updatedResource)
+        {
+            var resource = await _DbContext.Resources.FindAsync(id);
+            if (resource == null)
+            {
+                return NotFound(new { message = "Resource not found" });
+            }
+
+            resource.Title = updatedResource.Title;
+            resource.Description = updatedResource.Description;
+            resource.ResourceType = updatedResource.ResourceType;
+            resource.URL = updatedResource.URL;
+            resource.CategoryID = updatedResource.CategoryID;
+
+            if (updatedResource.File != null)
+            {
+                var fileName = $"{Guid.NewGuid()}_{updatedResource.File.FileName}";
+                var filePath = Path.Combine("wwwroot/uploads", fileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await updatedResource.File.CopyToAsync(stream);
+                }
+
+                resource.FilePath = $"/uploads/{fileName}";  // Save relative path
+            }
+
+            _DbContext.Resources.Update(resource);
+            await _DbContext.SaveChangesAsync();
+
+            return Ok(new { message = "Resource updated successfully", resource });
+        }
 
 
 
