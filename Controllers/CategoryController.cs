@@ -22,22 +22,34 @@ namespace Cs_Hub.Controllers
 
 
         [HttpPost("add-category")]
-        public async Task<IActionResult> AddCategory(Category category)
+        public async Task<IActionResult> AddCategory([FromBody] CategoryCreateDto category)
         {
-            _DbContext.Categories.Add(category);
+            if (category != null)
+            {
 
-            await _DbContext.SaveChangesAsync();
+                var new_category = new Category();
+                new_category.Name = category.Name;
+                new_category.Description = category.Description;
+                _DbContext.Categories.Add(new_category);
 
-            return Ok(new {message="The New Category Is Created"});
+                await _DbContext.SaveChangesAsync();
+
+                return Ok(new { message = "The New Category Is Created" });
+            }
+            else
+            {
+                return BadRequest(new { message = "category is ot valid" });
+            }
         }
 
 
-        [HttpPost("edit-category/{id}")]
+        [HttpPut("edit-category/{Id}")]
         public async Task<IActionResult> EditCategory(int Id,[FromBody] CategoryUpdateDto newdata)
         {
             try
             {
-                
+                Console.WriteLine($"this is the {Id}");
+
                 var category = await _DbContext.Categories.FindAsync(Id);
 
                 
@@ -81,12 +93,12 @@ namespace Cs_Hub.Controllers
         }
 
 
-        [HttpDelete("delete-category/{id}")]
-        public async Task<IActionResult> DeleteCategory(int Id)
+        [HttpDelete("delete-category/{Id}")]
+        public async Task<IActionResult> DeleteCategory([FromRoute] int Id)
         {
             try
             {
-                
+               
                 var category = await _DbContext.Categories.FindAsync(Id);
 
                

@@ -97,10 +97,10 @@ namespace Cs_Hub.Controllers
         }
 
        
-        [HttpDelete("delete_comment/{id}")]
-        public async Task<IActionResult> DeleteComment(int id)
+        [HttpDelete("delete_comment/{Id}")]
+        public async Task<IActionResult> DeleteComment(int Id)
         {
-            var comment = await _DbContext.Comments.FindAsync(id);
+            var comment = await _DbContext.Comments.FindAsync(Id);
             if (comment == null)
             {
                 return NotFound(new { message = "Comment not found" });

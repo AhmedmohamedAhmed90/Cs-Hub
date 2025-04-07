@@ -1,11 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Data",
-    "\\Models",
-    "\\obj",
+    "\\Controllers",
     "\\Views",
-    "\\Views\\Account",
     "\\Views\\Home",
     "\\Views\\Shared",
     "\\wwwroot",
