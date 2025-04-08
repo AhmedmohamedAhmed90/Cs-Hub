@@ -1,0 +1,19 @@
+<div [ngClass]="{'dark-mode': darkMode}">
+  <app-header 
+    [darkMode]="darkMode" 
+    [sidebarOpen]="sidebarOpen"
+    (toggleDarkMode)="toggleDarkMode()" 
+    (toggleSidebar)="toggleSidebar()">
+  </app-header>
+  
+  <div class="container-fluid">
+    <div class="row">
+      <app-sidebar [sidebarOpen]="sidebarOpen"></app-sidebar>
+      
+      <main [ngClass]="sidebarOpen ? 'col-md-9 ms-sm-auto col-lg-10 px-md-4' : 'col-12 px-4'">
+        <router-outlet></router-outlet>
+        <app-footer></app-footer>
+      </main>
+    </div>
+  </div>
+</div>

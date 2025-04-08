@@ -1,0 +1,39 @@
+/* App component styling */
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+.dark-mode {
+  background-color: var(--dark-bg);
+  color: var(--text-light);
+  min-height: 100vh;
+  
+  a:not(.btn) {
+    color: var(--primary-light);
+  }
+  
+  .bg-light {
+    background-color: var(--dark-surface) !important;
+  }
+  
+  .text-dark {
+    color: var(--text-light) !important;
+  }
+  
+  .border {
+    border-color: rgba(255, 255, 255, 0.1) !important;
+  }
+  
+  .card {
+    background-color: var(--dark-surface);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+main {
+  transition: margin-left 0.3s ease;
+  padding-top: 1rem;
+  padding-bottom: 3rem;
+  min-height: calc(100vh - 60px);
+}
