@@ -1,0 +1,104 @@
+/* Global Styles */
+:root {
+  --primary-color: #3b82f6; /* Blue 500 */
+  --primary-dark: #2563eb;  /* Blue 600 */
+  --primary-light: #60a5fa; /* Blue 400 */
+  --secondary-color: #6b7280; /* Gray 500 */
+  --accent-color: #8b5cf6; /* Violet 500 */
+  --success-color: #10b981; /* Emerald 500 */
+  --warning-color: #f59e0b; /* Amber 500 */
+  --danger-color: #ef4444;  /* Red 500 */
+  --dark-bg: #111827; /* Gray 900 */
+  --dark-surface: #1f2937; /* Gray 800 */
+  --light-bg: #ffffff;
+  --light-surface: #f9fafb; /* Gray 50 */
+  --text-dark: #111827; /* Gray 900 */
+  --text-light: #f9fafb; /* Gray 50 */
+  --text-muted: #6b7280; /* Gray 500 */
+  --border-color: #e5e7eb; /* Gray 200 */
+  --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Reset & Basics */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-primary);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--text-dark);
+  background-color: var(--light-bg);
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+  
+  &:hover {
+    color: var(--primary-dark);
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 1.75rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+h4 {
+  font-size: 1.25rem;
+}
+
+/* Custom utility classes */
+.gradient-text {
+  background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: var(--dark-bg);
+    color: var(--text-light);
+  }
+  
+  .bg-light {
+    background-color: var(--dark-surface) !important;
+  }
+  
+  .text-dark {
+    color: var(--text-light) !important;
+  }
+  
+  .border {
+    border-color: rgba(255, 255, 255, 0.1) !important;
+  }
+}
