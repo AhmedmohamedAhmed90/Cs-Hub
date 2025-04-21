@@ -5,11 +5,11 @@ namespace Cs_Hub.Dtos
     public class CategoryCreateDto
     {
 
-        [Required]
+        //[Required]
         public string Name { get; set; }
 
 
-        [Required]
+        //[Required]
 
         public string Description { get; set; }
     }

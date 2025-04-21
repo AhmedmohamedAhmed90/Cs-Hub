@@ -4,9 +4,9 @@ namespace Cs_Hub.Dtos
 {
     public class Login
     {
-        [Required]
+        //[Required]
         public String? Email { get; set; }
-        [Required]
+        //[Required]
         public String? Password { get; set; }
     }
 }

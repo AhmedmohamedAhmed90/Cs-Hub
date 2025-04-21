@@ -11,16 +11,16 @@ namespace Cs_Hub.Models
 
         [Required]
         [ForeignKey("User")]
-        public string UserID { get; set; }
+        public string? UserID { get; set; }
         public User User { get; set; }
 
         [Required]
         [ForeignKey("Resource")]
-        public int ResourceID { get; set; }
-        public Resource Resource { get; set; }
+        public int? ResourceID { get; set; }
+        public Resource? Resource { get; set; }
 
         [Required]
-        public string Content { get; set; }
+        public string? Content { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }

@@ -7,12 +7,12 @@ namespace Cs_Hub.Models
 {
     public class User : IdentityUser
     {
-        [Required]
+        //[Required]
         public string FullName { get; set; }
 
-        public int? Age { get; set; } 
+        public int? Age { get; set; }
 
-        public string? Address { get; set; } 
+        public string? Address { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 

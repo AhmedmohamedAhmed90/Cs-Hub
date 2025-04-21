@@ -1,9 +1,13 @@
 ﻿using Cs_Hub.Data;
 using Cs_Hub.Dtos;
+using Cs_Hub.Interfaces;
 using Cs_Hub.Models;
+using FluentValidation;
+using Humanizer.Localisation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using ScHub.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -15,13 +19,17 @@ namespace Cs_Hub.Controllers
     public class ReviewsController : ControllerBase
     {
         private readonly ApplicationDbContext _DbContext;
+        private readonly IValidator<Review> _reviewValidation;
+        private readonly IReviewRepository _reviewRepository;
 
-        public ReviewsController(ApplicationDbContext dbContext)
+        public ReviewsController(ApplicationDbContext dbContext, IValidator<Review> review, IReviewRepository reviewRepository)
         {
             _DbContext = dbContext;
+            _reviewValidation = review;
+            _reviewRepository = reviewRepository;
         }
 
-       
+
         [HttpPost("create_review")]
         public async Task<IActionResult> CreateReview([FromBody] CreateReviewDto reviewDto)
         {
@@ -32,12 +40,23 @@ namespace Cs_Hub.Controllers
                 Rating = reviewDto.Rating
             };
 
+            var validation = await _reviewValidation.ValidateAsync(review);
 
-            _DbContext.Reviews.Add(review);
-            await _DbContext.SaveChangesAsync();
+            if (!validation.IsValid)
+            {
+                var problemDetails = new HttpValidationProblemDetails(validation.ToDictionary())
+                {
+                    Status = StatusCodes.Status400BadRequest,
+                    Title = "Validation failed",
+                    Detail = "One or more validation errors occured",
+                    Instance = "/api/account/register"
+                };
+                return BadRequest(Results.Problem(problemDetails));
+            }
+
+            await _reviewRepository.Add(review);
             return Ok(new { message = "review created ", review });
         }
-
 
         [HttpGet("get_all_reviews")]
         public async Task<IActionResult> GetAllReviews()
@@ -106,7 +125,7 @@ namespace Cs_Hub.Controllers
 
 
         [HttpPut("update_review/{id}")]
-        public async Task<IActionResult> UpdateReview([FromRoute]int id, int newrating)
+        public async Task<IActionResult> UpdateReview([FromRoute] int id, int newrating)
         {
             if (newrating == null)
             {
@@ -121,17 +140,31 @@ namespace Cs_Hub.Controllers
 
 
             existingReview.Rating = newrating;
-            existingReview.CreatedAt = DateTime.UtcNow; 
+            existingReview.CreatedAt = DateTime.UtcNow;
 
-            _DbContext.Reviews.Update(existingReview);
-            await _DbContext.SaveChangesAsync();
+            var validation = await _reviewValidation.ValidateAsync(existingReview);
 
-            return Ok(new { message="review updated successfully", existingReview });
+            if (!validation.IsValid)
+            {
+                var problemDetails = new HttpValidationProblemDetails(validation.ToDictionary())
+                {
+                    Status = StatusCodes.Status400BadRequest,
+                    Title = "Validation failed",
+                    Detail = "One or more validation errors occured",
+                    Instance = "/api/account/register"
+                };
+                return BadRequest(Results.Problem(problemDetails));
+            }
+
+
+            await _reviewRepository.Update(existingReview);
+
+            return Ok(new { message = "review updated successfully", existingReview });
         }
 
-        
+
         [HttpDelete("delete_review/{id}")]
-        public async Task<IActionResult> DeleteReview([FromRoute]int id)
+        public async Task<IActionResult> DeleteReview([FromRoute] int id)
         {
             var review = await _DbContext.Reviews.FindAsync(id);
             if (review == null)
@@ -139,8 +172,7 @@ namespace Cs_Hub.Controllers
                 return NotFound(new { message = "Review not found" });
             }
 
-            _DbContext.Reviews.Remove(review);
-            await _DbContext.SaveChangesAsync();
+            await _reviewRepository.Delete(review);
 
             return Ok(new { message = "Review deleted successfully" });
         }

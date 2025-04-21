@@ -6,6 +6,11 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Cs_Hub.Dtos;
+using FluentValidation;
+using ScHub.Interfaces;
+using Cs_Hub.Interfaces;
+using Cs_Hub.Repository;
+
 
 namespace Cs_Hub.Controllers
 {
@@ -14,13 +19,20 @@ namespace Cs_Hub.Controllers
     public class CommentController : ControllerBase
     {
         private readonly ApplicationDbContext _DbContext;
+        private readonly IValidator<Comment> _validator;
+        private readonly ICommentRepository _commentRepository;
+        private readonly IValidator<CreateCommentDto> _CreateCommentDtoValidator;
 
-        public CommentController(ApplicationDbContext dbContext)
+        public CommentController(IValidator<CreateCommentDto> CreateCommentDtoValidator, ApplicationDbContext dbContext, IValidator<Comment> validator, ICommentRepository commentRepository)
         {
             _DbContext = dbContext;
+            _validator = validator;
+            _commentRepository = commentRepository;
+            _CreateCommentDtoValidator = CreateCommentDtoValidator;
         }
 
-        
+
+
         [HttpGet("get_resource_comments/{resourceId}")]
         public async Task<IActionResult> GetCommentsByResource(int resourceId)
         {
@@ -50,6 +62,7 @@ namespace Cs_Hub.Controllers
         }
 
 
+
         [HttpPost("create_comment")]
         public async Task<IActionResult> CreateComment([FromBody] CreateCommentDto dto)
         {
@@ -57,6 +70,21 @@ namespace Cs_Hub.Controllers
             {
                 return BadRequest(new { message = "Invalid comment data" });
             }
+
+
+            var validationResult1 = _CreateCommentDtoValidator.Validate(dto);
+            if (!validationResult1.IsValid)
+            {
+                var problemDetails = new HttpValidationProblemDetails(validationResult1.ToDictionary())
+                {
+                    Status = StatusCodes.Status400BadRequest,
+                    Title = "Validation failed",
+                    Detail = "One or more validation errors occured",
+                    Instance = "/api/account/register"
+                };
+                return BadRequest(Results.Problem(problemDetails));
+            }
+
 
             var comment = new Comment
             {
@@ -66,9 +94,21 @@ namespace Cs_Hub.Controllers
                 CreatedAt = DateTime.UtcNow
             };
 
-            _DbContext.Comments.Add(comment);
-            await _DbContext.SaveChangesAsync();
+            var validationResult = await _validator.ValidateAsync(comment);
 
+            if (!validationResult.IsValid)
+            {
+                var problemDetails = new HttpValidationProblemDetails(validationResult.ToDictionary())
+                {
+                    Status = StatusCodes.Status400BadRequest,
+                    Title = "Validation failed",
+                    Detail = "One or more validation errors occured",
+                    Instance = "/api/account/register"
+                };
+                return BadRequest(Results.Problem(problemDetails));
+            }
+
+            await _commentRepository.Add(comment);
             return CreatedAtAction(nameof(GetCommentsByResource), new { resourceId = comment.ResourceID },
                 new { message = "Comment created successfully", comment });
         }
@@ -90,13 +130,27 @@ namespace Cs_Hub.Controllers
 
             comment.Content = content;
 
-            _DbContext.Comments.Update(comment);
-            await _DbContext.SaveChangesAsync();
+
+            var validationResult = await _validator.ValidateAsync(comment);
+
+            if (!validationResult.IsValid)
+            {
+                var problemDetails = new HttpValidationProblemDetails(validationResult.ToDictionary())
+                {
+                    Status = StatusCodes.Status400BadRequest,
+                    Title = "Validation failed",
+                    Detail = "One or more validation errors occured",
+                    Instance = "/api/account/register"
+                };
+                return BadRequest(Results.Problem(problemDetails));
+            }
+
+            await _commentRepository.Update(comment);
 
             return Ok(new { message = "Comment updated successfully", comment });
         }
 
-       
+
         [HttpDelete("delete_comment/{Id}")]
         public async Task<IActionResult> DeleteComment(int Id)
         {
@@ -106,7 +160,7 @@ namespace Cs_Hub.Controllers
                 return NotFound(new { message = "Comment not found" });
             }
 
-            _DbContext.Comments.Remove(comment);
+            await _commentRepository.Delete(comment);
             await _DbContext.SaveChangesAsync();
 
             return Ok(new { message = "Comment deleted successfully" });

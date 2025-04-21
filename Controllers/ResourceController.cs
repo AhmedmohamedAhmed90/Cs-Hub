@@ -1,5 +1,4 @@
-﻿
-using Cs_Hub.Data;
+﻿using Cs_Hub.Data;
 using Cs_Hub.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -9,6 +8,9 @@ using System.Threading.Tasks;
 using Cs_Hub.Dtos;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using FluentValidation;
+using Cs_Hub.Interfaces;
+using ScHub.Interfaces;
 
 
 namespace Cs_Hub.Controllers
@@ -18,13 +20,20 @@ namespace Cs_Hub.Controllers
     public class ResourceController : Controller
     {
         private readonly ApplicationDbContext _DbContext;
-        private readonly IWebHostEnvironment _env; 
+        private readonly IWebHostEnvironment _env;
+        private readonly IValidator<ResourceUpload> _validator;
+        private readonly IValidator<Resource> _ResourceValidator;
+        private readonly IResourceRepository _resourceRepository;
 
 
-        public ResourceController(ApplicationDbContext dbContext,IWebHostEnvironment env)
+
+        public ResourceController(IResourceRepository resourceRepository, IValidator<Resource> ResourceValidator, ApplicationDbContext dbContext, IWebHostEnvironment env, IValidator<ResourceUpload> validator)
         {
             _DbContext = dbContext;
-             _env = env;
+            _env = env;
+            _validator = validator;
+            _ResourceValidator = ResourceValidator;
+            _resourceRepository = resourceRepository;
         }
 
         //119944697
@@ -59,68 +68,96 @@ namespace Cs_Hub.Controllers
                    return Ok();
                    }*/
 
+
+
         [HttpPost("upload")]
-public async Task<IActionResult> UploadResource([FromForm] ResourceUpload model)
-{
-    try
-    {
-        Console.WriteLine("🔹 UploadResource action triggered!");
+        public async Task<IActionResult> UploadResource(
+            [FromForm] ResourceUpload model)
 
-        if (!ModelState.IsValid)
         {
-            return BadRequest(ModelState);
-        }
-
-        // Handle file upload
-        string? filePath = null;
-        if (model.File != null && model.File.Length > 0)
-        {
-            var fileName = $"{Guid.NewGuid()}_{Path.GetFileName(model.File.FileName)}";
-            filePath = Path.Combine(_env.WebRootPath, "uploads", fileName);
-
-            Directory.CreateDirectory(Path.GetDirectoryName(filePath));
-
-            using (var stream = new FileStream(filePath, FileMode.Create))
+            try
             {
-                await model.File.CopyToAsync(stream);
+                Console.WriteLine("🔹 UploadResource action triggered!");
+
+                // الخطوة الجديدة: التحقق من الصحة باستخدام FluentValidation
+                var validationResult = await _validator.ValidateAsync(model);
+
+                if (!validationResult.IsValid)
+                {
+                    var problemDetails = new HttpValidationProblemDetails(validationResult.ToDictionary())
+                    {
+                        Status = StatusCodes.Status400BadRequest,
+                        Title = "Validation failed",
+                        Detail = "One or more validation errors occured",
+                        Instance = "/api/account/register"
+                    };
+                    return BadRequest(Results.Problem(problemDetails));
+                }
+
+                // باقي الكود كما هو...
+                string? filePath = null;
+                if (model.File != null && model.File.Length > 0)
+                {
+                    var fileName = $"{Guid.NewGuid()}_{Path.GetFileName(model.File.FileName)}";
+                    filePath = Path.Combine(_env.WebRootPath, "uploads", fileName);
+
+                    Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await model.File.CopyToAsync(stream);
+                    }
+
+                    filePath = $"/uploads/{fileName}";
+                }
+
+                var resource = new Resource
+                {
+                    Title = model.Title,
+                    Description = model.Description,
+                    ResourceType = model.ResourceType,
+                    UserID = model.UserId,
+                    CategoryID = model.CategoryID,
+                    URL = model.URL,
+                    FilePath = filePath,
+                    CreatedAt = DateTime.UtcNow,
+                    Status = model.Status
+                };
+
+
+
+                var ValidatorResult = await _ResourceValidator.ValidateAsync(resource);
+
+                if (!ValidatorResult.IsValid)
+                {
+                    var problemDetails = new HttpValidationProblemDetails(ValidatorResult.ToDictionary())
+                    {
+                        Status = StatusCodes.Status400BadRequest,
+                        Title = "Validation failed",
+                        Detail = "One or more validation errors occured",
+                        Instance = "/api/account/register"
+                    };
+                    return BadRequest(Results.Problem(problemDetails));
+                }
+
+
+                await _resourceRepository.Add(resource);
+
+                return Ok(new
+                {
+                    message = "Resource uploaded successfully!",
+                    resourceID = resource.ResourceID,
+                    title = resource.Title,
+                    filePath = resource.FilePath,
+                    url = resource.URL
+                });
             }
-
-            filePath = $"/uploads/{fileName}";
+            catch (Exception ex)
+            {
+                Console.WriteLine($" ERROR: {ex.Message}");
+                return StatusCode(500, new { error = "Internal Server Error", details = ex.Message });
+            }
         }
-
-        // Create new resource
-        var resource = new Resource
-        {
-            Title = model.Title,
-            Description = model.Description,
-            ResourceType = model.ResourceType,
-            UserID = "c711a6c3-6639-4601-90b6-bab21a744847",
-            CategoryID = model.CategoryID,
-            URL = model.URL,
-            FilePath = filePath,
-            CreatedAt = DateTime.UtcNow,
-            Status = "Pending"
-        };
-
-        _DbContext.Resources.Add(resource);
-        await _DbContext.SaveChangesAsync();
-
-        return Ok(new
-        {
-            message = "Resource uploaded successfully!",
-            resourceID = resource.ResourceID,
-            title = resource.Title,
-            filePath = resource.FilePath,
-            url = resource.URL
-        });
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine($" ERROR: {ex.Message}");
-        return StatusCode(500, new { error = "Internal Server Error", details = ex.Message });
-    }
-}
-
 
         [HttpGet("get_all_resources")]
         public async Task<IActionResult> GetAllResources()
@@ -235,7 +272,23 @@ public async Task<IActionResult> UploadResource([FromForm] ResourceUpload model)
                 return NotFound("resource is not found");
 
             }
+
             resource.Status = "Approved";
+
+            var ValidatorResult = await _ResourceValidator.ValidateAsync(resource);
+
+            if (!ValidatorResult.IsValid)
+            {
+                var problemDetails = new HttpValidationProblemDetails(ValidatorResult.ToDictionary())
+                {
+                    Status = StatusCodes.Status400BadRequest,
+                    Title = "Validation failed",
+                    Detail = "One or more validation errors occured",
+                    Instance = "/api/account/register"
+                };
+                return BadRequest(Results.Problem(problemDetails));
+            }
+
             await _DbContext.SaveChangesAsync();
 
             return Ok(new { message = "resource Approved Successfully" });
@@ -253,8 +306,7 @@ public async Task<IActionResult> UploadResource([FromForm] ResourceUpload model)
                 return NotFound("resource is not found");
 
             }
-             _DbContext.Remove(resource);
-            await _DbContext.SaveChangesAsync();
+            await _resourceRepository.Delete(resource);
 
             return Ok(new { message = "resource Deleted Successfully" });
 
@@ -316,42 +368,105 @@ public async Task<IActionResult> UploadResource([FromForm] ResourceUpload model)
 
 
         [HttpPut("update_resource/{id}")]
-        public async Task<IActionResult> UpdateResource(int id, [FromForm] ResourceUpload updatedResource)
+        public async Task<IActionResult> UpdateResource(
+            int id,
+            [FromForm] ResourceUpload updatedResource)
+        // حقن الـ Validator
         {
-            var resource = await _DbContext.Resources.FindAsync(id);
-            if (resource == null)
+            try
             {
-                return NotFound(new { message = "Resource not found" });
-            }
+                Console.WriteLine("🔹 UpdateResource action triggered!");
 
-            resource.Title = updatedResource.Title;
-            resource.Description = updatedResource.Description;
-            resource.ResourceType = updatedResource.ResourceType;
-            resource.URL = updatedResource.URL;
-            resource.CategoryID = updatedResource.CategoryID;
+                // التحقق من صحة المدخلات باستخدام FluentValidation
+                var validationResult = await _validator.ValidateAsync(updatedResource);
 
-            if (updatedResource.File != null)
-            {
-                var fileName = $"{Guid.NewGuid()}_{updatedResource.File.FileName}";
-                var filePath = Path.Combine("wwwroot/uploads", fileName);
-
-                using (var stream = new FileStream(filePath, FileMode.Create))
+                if (!validationResult.IsValid)
                 {
-                    await updatedResource.File.CopyToAsync(stream);
+                    var problemDetails = new HttpValidationProblemDetails(validationResult.ToDictionary())
+                    {
+                        Status = StatusCodes.Status400BadRequest,
+                        Title = "Validation failed",
+                        Detail = "One or more validation errors occured",
+                        Instance = "/api/account/register"
+                    };
+                    return BadRequest(Results.Problem(problemDetails));
                 }
 
-                resource.FilePath = $"/uploads/{fileName}";  // Save relative path
+                var resource = await _DbContext.Resources.FindAsync(id);
+                if (resource == null)
+                {
+                    return NotFound(new { message = "Resource not found" });
+                }
+
+                // تحديث البيانات الأساسية
+                resource.Title = updatedResource.Title;
+                resource.Description = updatedResource.Description;
+                resource.ResourceType = updatedResource.ResourceType;
+                resource.URL = updatedResource.URL;
+                resource.CategoryID = updatedResource.CategoryID;
+
+                // معالجة تحميل الملف إذا تم توفيره
+                if (updatedResource.File != null && updatedResource.File.Length > 0)
+                {
+                    // حذف الملف القديم إذا كان موجودًا
+                    if (!string.IsNullOrEmpty(resource.FilePath))
+                    {
+                        var oldFilePath = Path.Combine("wwwroot", resource.FilePath.TrimStart('/'));
+                        if (System.IO.File.Exists(oldFilePath))
+                        {
+                            System.IO.File.Delete(oldFilePath);
+                        }
+                    }
+
+                    // تحميل الملف الجديد
+                    var fileName = $"{Guid.NewGuid()}_{Path.GetFileName(updatedResource.File.FileName)}";
+                    var filePath = Path.Combine(_env.WebRootPath, "uploads", fileName);
+
+                    Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await updatedResource.File.CopyToAsync(stream);
+                    }
+
+                    resource.FilePath = $"/uploads/{fileName}";
+                }
+
+                var validation = await _ResourceValidator.ValidateAsync(resource);
+
+                if (!validation.IsValid)
+                {
+                    var problemDetails = new HttpValidationProblemDetails(validation.ToDictionary())
+                    {
+                        Status = StatusCodes.Status400BadRequest,
+                        Title = "Validation failed",
+                        Detail = "One or more validation errors occured",
+                        Instance = "/api/account/register"
+                    };
+                    return BadRequest(Results.Problem(problemDetails));
+                }
+
+                await _resourceRepository.Update(resource);
+
+                return Ok(new
+                {
+                    message = "Resource updated successfully",
+                    resource = new
+                    {
+                        resourceID = resource.ResourceID,
+                        title = resource.Title,
+                        description = resource.Description,
+                        filePath = resource.FilePath,
+                        url = resource.URL
+                    }
+                });
             }
-
-            _DbContext.Resources.Update(resource);
-            await _DbContext.SaveChangesAsync();
-
-            return Ok(new { message = "Resource updated successfully", resource });
+            catch (Exception ex)
+            {
+                Console.WriteLine($" ERROR: {ex.Message}");
+                return StatusCode(500, new { error = "Internal Server Error", details = ex.Message });
+            }
         }
-
-
-
-
         /*     public async Task<IActionResult> Edit(int id)
              {
                  var resource = await _DbContext.Resources.FindAsync(id);
@@ -440,5 +555,7 @@ public async Task<IActionResult> UploadResource([FromForm] ResourceUpload model)
                  return _DbContext.Resources.Any(e => e.ResourceID == id);
              }
         */
+
+
     }
 }

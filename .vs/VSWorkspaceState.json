@@ -2,12 +2,15 @@
   "ExpandedNodes": [
     "",
     "\\Controllers",
-    "\\Views",
-    "\\Views\\Home",
+    "\\Data",
+    "\\Dtos",
+    "\\Interfaces",
+    "\\Models",
+    "\\Repository",
+    "\\Validation",
     "\\Views\\Shared",
-    "\\wwwroot",
     "\\wwwroot\\uploads"
   ],
-  "SelectedNode": "\\Cs-Hub.sln",
+  "SelectedNode": "\\Program.cs",
   "PreviewInSolutionExplorer": false
 }

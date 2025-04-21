@@ -7,17 +7,17 @@ namespace Cs_Hub.Dtos
 
         public string? FullName { get; set; }
 
-        [Required]
-        [EmailAddress]
+        //[Required]
+        //[EmailAddress]
         public string? Email { get; set; }
-       
+
         public string? Password { get; set; }
-        [StringLength(100)]
+        //[StringLength(100)]
         public string? Address { get; set; }
 
-        [Range(0, 150)]
-        public int Age { get; set; }
+        //[Range(0, 150)]
+        public int? Age { get; set; }
 
-       
+
     }
 }

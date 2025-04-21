@@ -10,8 +10,8 @@ using System.Linq;
 
 namespace Cs_Hub.Controllers
 {
-    [Route("api/users")]  
-    [ApiController]        
+    [Route("api/users")]
+    [ApiController]
     public class UserController : ControllerBase
     {
         private readonly ApplicationDbContext _DbContext;
@@ -108,6 +108,7 @@ namespace Cs_Hub.Controllers
 
             return Ok(user);
         }
+
 
         [HttpDelete("delete-user/{id}")]
         public async Task<IActionResult> DeleteUser(string id)
