@@ -575,3 +575,6 @@ C:\Users\ZIAD\Documents\GitHub\Cs-Hub\obj\Debug\net6.0\Cs-Hub.pdb
 C:\Users\ZIAD\Documents\GitHub\Cs-Hub\obj\Debug\net6.0\Cs-Hub.genruntimeconfig.cache
 C:\Users\ZIAD\Documents\GitHub\Cs-Hub\obj\Debug\net6.0\ref\Cs-Hub.dll
 C:\Users\ZIAD\Documents\GitHub\Cs-Hub\obj\Debug\net6.0\Cs-Hub.csproj.CopyComplete
+D:\anime\newclone\Cs-Hub\obj\Debug\net6.0\Cs-Hub.dll
+D:\anime\newclone\Cs-Hub\obj\Debug\net6.0\refint\Cs-Hub.dll
+D:\anime\newclone\Cs-Hub\obj\Debug\net6.0\Cs-Hub.pdb
