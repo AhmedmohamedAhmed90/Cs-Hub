@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\anime\\newclone\\Cs-Hub\\Cs-Hub.csproj": {}
+    "C:\\Users\\ZIAD\\Documents\\GitHub\\Cs-Hub\\Cs-Hub.csproj": {}
   },
   "projects": {
-    "D:\\anime\\newclone\\Cs-Hub\\Cs-Hub.csproj": {
+    "C:\\Users\\ZIAD\\Documents\\GitHub\\Cs-Hub\\Cs-Hub.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\anime\\newclone\\Cs-Hub\\Cs-Hub.csproj",
+        "projectUniqueName": "C:\\Users\\ZIAD\\Documents\\GitHub\\Cs-Hub\\Cs-Hub.csproj",
         "projectName": "Cs-Hub",
-        "projectPath": "D:\\anime\\newclone\\Cs-Hub\\Cs-Hub.csproj",
-        "packagesPath": "C:\\Users\\BALAHA\\.nuget\\packages\\",
-        "outputPath": "D:\\anime\\newclone\\Cs-Hub\\obj\\",
+        "projectPath": "C:\\Users\\ZIAD\\Documents\\GitHub\\Cs-Hub\\Cs-Hub.csproj",
+        "packagesPath": "C:\\Users\\ZIAD\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ZIAD\\Documents\\GitHub\\Cs-Hub\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\BALAHA\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\ZIAD\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -43,8 +39,7 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.100"
+        }
       },
       "frameworks": {
         "net6.0": {
@@ -100,6 +95,24 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[6.0.31, 6.0.31]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[6.0.31, 6.0.31]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[6.0.31, 6.0.31]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[6.0.31, 6.0.31]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -108,7 +121,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.206\\RuntimeIdentifierGraph.json"
         }
       }
     }

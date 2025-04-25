@@ -8,7 +8,6 @@
     "\\Models",
     "\\Repository",
     "\\Validation",
-    "\\Views\\Shared",
     "\\wwwroot\\uploads"
   ],
   "SelectedNode": "\\Program.cs",
