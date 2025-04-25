@@ -1,0 +1,125 @@
+<!-- Header -->
+<header class="header">
+  <div class="header-content">
+    <div class="logo">
+      <h1>CS Hub</h1>
+    </div>
+    <div class="user-actions">
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="navigateToProfile()">
+          <mat-icon>person</mat-icon>
+          <span>Profile</span>
+        </button>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          <span>Logout</span>
+        </button>
+      </mat-menu>
+    </div>
+  </div>
+</header>
+
+<!-- Main Content -->
+<main class="main-content">
+  <div class="container">
+    <!-- Loading State -->
+    <div class="loading-container" *ngIf="loading">
+      <mat-spinner diameter="50"></mat-spinner>
+      <p>Loading resources...</p>
+    </div>
+
+    <!-- Error State -->
+    <div class="error-container" *ngIf="error">
+      <mat-icon class="error-icon">error_outline</mat-icon>
+      <p>{{ error }}</p>
+      <button mat-raised-button color="primary" (click)="loadResources()">
+        Try Again
+      </button>
+    </div>
+
+    <!-- Resources Grid -->
+    <div class="resources-container" *ngIf="!loading && !error">
+      <mat-card class="resource-card" *ngFor="let resource of resources">
+        <div class="card-header">
+          <div class="user-info">
+            <mat-icon class="user-avatar">account_circle</mat-icon>
+            <div class="user-details">
+              <span class="username">{{ resource.user.fullName }}</span>
+              <span class="post-time">{{ resource.createdAt | date:'medium' }}</span>
+            </div>
+          </div>
+          <div class="resource-category">
+            <mat-chip>{{ resource.category.name }}</mat-chip>
+          </div>
+        </div>
+
+        <div class="card-content">
+          <h2 class="resource-title">{{ resource.title }}</h2>
+          <p class="resource-description">{{ resource.description }}</p>
+          
+          <div class="resource-preview" *ngIf="resource.filePath">
+            <img [src]="resource.filePath" alt="Resource preview" *ngIf="isImage(resource.filePath)">
+            <div class="file-preview" *ngIf="!isImage(resource.filePath)">
+              <mat-icon>insert_drive_file</mat-icon>
+              <span>File Attachment</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-actions">
+          <button mat-button color="primary" (click)="openUrl(resource.url)" *ngIf="resource.url">
+            <mat-icon>open_in_new</mat-icon>
+            Visit
+          </button>
+          <button mat-button color="primary" (click)="downloadFile(resource.filePath)" *ngIf="resource.filePath">
+            <mat-icon>download</mat-icon>
+            Download
+          </button>
+          <div class="spacer"></div>
+          <button mat-icon-button>
+            <mat-icon>favorite_border</mat-icon>
+          </button>
+          <button mat-icon-button>
+            <mat-icon>comment</mat-icon>
+          </button>
+          <button mat-icon-button>
+            <mat-icon>share</mat-icon>
+          </button>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-content">
+    <div class="footer-section">
+      <h3>CS Hub</h3>
+      <p>Your one-stop platform for computer science resources</p>
+    </div>
+    <div class="footer-section">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Resources</a></li>
+        <li><a href="#">Profile</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="#">Support</a></li>
+        <li><a href="#">Feedback</a></li>
+        <li><a href="#">Report Issue</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2024 CS Hub. All rights reserved.</p>
+  </div>
+</footer> 
