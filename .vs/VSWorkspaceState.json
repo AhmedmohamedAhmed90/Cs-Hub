@@ -1,15 +1,6 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\Controllers",
-    "\\Data",
-    "\\Dtos",
-    "\\Interfaces",
-    "\\Models",
-    "\\Repository",
-    "\\Validation",
-    "\\wwwroot\\uploads"
+    ""
   ],
-  "SelectedNode": "\\Program.cs",
   "PreviewInSolutionExplorer": false
 }
