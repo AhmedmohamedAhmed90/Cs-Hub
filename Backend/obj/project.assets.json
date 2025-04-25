@@ -11476,11 +11476,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ZIAD\\Documents\\GitHub\\Cs-Hub\\Cs-Hub.csproj",
+      "projectUniqueName": "C:\\Users\\ZIAD\\Documents\\GitHub\\Cs-Hub\\Backend\\Cs-Hub.csproj",
       "projectName": "Cs-Hub",
-      "projectPath": "C:\\Users\\ZIAD\\Documents\\GitHub\\Cs-Hub\\Cs-Hub.csproj",
+      "projectPath": "C:\\Users\\ZIAD\\Documents\\GitHub\\Cs-Hub\\Backend\\Cs-Hub.csproj",
       "packagesPath": "C:\\Users\\ZIAD\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ZIAD\\Documents\\GitHub\\Cs-Hub\\obj\\",
+      "outputPath": "C:\\Users\\ZIAD\\Documents\\GitHub\\Cs-Hub\\Backend\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\ZIAD\\AppData\\Roaming\\NuGet\\NuGet.Config",

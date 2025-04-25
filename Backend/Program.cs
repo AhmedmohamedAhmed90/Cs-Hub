@@ -107,6 +107,19 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
+// Add CORS services
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularApp",
+        builder =>
+        {
+            builder.WithOrigins("http://localhost:4200")
+                   .AllowAnyHeader()
+                   .AllowAnyMethod()
+                   .AllowCredentials();
+        });
+});
+
 var app = builder.Build();
 
 
@@ -135,6 +148,9 @@ app.UseRouting();
 // ✅ Authentication & Authorization
 app.UseAuthentication();
 app.UseAuthorization();
+
+// Use CORS before other middleware
+app.UseCors("AllowAngularApp");
 
 app.UseEndpoints(endpoints =>
 {
