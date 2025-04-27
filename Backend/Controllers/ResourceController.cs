@@ -121,7 +121,7 @@ namespace Cs_Hub.Controllers
                     URL = model.URL,
                     FilePath = filePath,
                     CreatedAt = DateTime.UtcNow,
-                    Status = model.Status
+                    // Status = model.Status
                 };
 
 
@@ -467,6 +467,61 @@ namespace Cs_Hub.Controllers
                 return StatusCode(500, new { error = "Internal Server Error", details = ex.Message });
             }
         }
+
+
+        [HttpGet("user/{userId}/resources")]
+public async Task<IActionResult> GetResourcesByUserId([FromRoute] string userId)
+{
+    var resources = await _DbContext.Resources
+        .Where(r => r.UserID == userId)
+        .Include(r => r.Reviews)
+        .Include(r => r.Comments)
+        .Include(r => r.Category)
+        .Include(r => r.User)
+        .Select(r => new
+        {
+            r.ResourceID,
+            r.Title,
+            r.Description,
+            r.ResourceType,
+            r.URL,
+            r.FilePath,
+            r.Status,
+            r.CreatedAt,
+            User = new
+            {
+                r.User.Id,
+                r.User.FullName,
+                r.User.Email
+            },
+            Category = new
+            {
+                r.Category.CategoryID,
+                r.Category.Name
+            },
+            Reviews = r.Reviews.Select(review => new
+            {
+                review.ReviewID,
+                review.Rating,
+                review.CreatedAt
+            }),
+            Comments = r.Comments.Select(comment => new
+            {
+                comment.CommentID,
+                comment.Content,
+                comment.CreatedAt
+            })
+        })
+        .ToListAsync();
+
+    if (!resources.Any())
+    {
+        return NotFound(new { message = "No resources found for this user." });
+    }
+
+    return Ok(new { message = "Resources found", resources });
+}
+
         /*     public async Task<IActionResult> Edit(int id)
              {
                  var resource = await _DbContext.Resources.FindAsync(id);
@@ -555,6 +610,8 @@ namespace Cs_Hub.Controllers
                  return _DbContext.Resources.Any(e => e.ResourceID == id);
              }
         */
+
+
 
 
     }

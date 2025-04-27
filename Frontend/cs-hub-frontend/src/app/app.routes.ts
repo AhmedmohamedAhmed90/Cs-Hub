@@ -3,6 +3,7 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { RegisterComponent } from './components/auth/register/register.component';
+import { MyResourcesComponent } from './components/my-resources/my-resources.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -10,5 +11,6 @@ export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'profile', component: ProfileComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'my-resources', component: MyResourcesComponent },
   { path: '**', redirectTo: 'login' },
 ];

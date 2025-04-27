@@ -1040,6 +1040,22 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\65fe4738-88ae-4b72-bf14-b0d9989dcedd_L0_COMMANDS_LIST (1).pdf))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\a03198ce-c724-424d-b67e-1b8f392cf8a4_depi_gig.pdf))">
+      <SourceType>Package</SourceType>
+      <SourceId>Cs-Hub</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/Cs-Hub</BasePath>
+      <RelativePath>uploads/a03198ce-c724-424d-b67e-1b8f392cf8a4_depi_gig.pdf</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\a03198ce-c724-424d-b67e-1b8f392cf8a4_depi_gig.pdf))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\bde2aca8-fc7b-4af4-9868-2accdc2861a1_My Portfolio (1).pdf))">
       <SourceType>Package</SourceType>
       <SourceId>Cs-Hub</SourceId>
@@ -1055,6 +1071,22 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\bde2aca8-fc7b-4af4-9868-2accdc2861a1_My Portfolio (1).pdf))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\c9c0b600-5b3f-4472-b40d-444b04bef258_My Portfolio (1) (2).pdf))">
+      <SourceType>Package</SourceType>
+      <SourceId>Cs-Hub</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/Cs-Hub</BasePath>
+      <RelativePath>uploads/c9c0b600-5b3f-4472-b40d-444b04bef258_My Portfolio (1) (2).pdf</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\c9c0b600-5b3f-4472-b40d-444b04bef258_My Portfolio (1) (2).pdf))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\ecf5ba07-6fff-4dce-afa9-5a4fe916dcb2_My Portfolio (1).pdf))">
       <SourceType>Package</SourceType>

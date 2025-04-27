@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "E5TM1Y/bfIJyfcMl0a/yVettoFCTpNi8UlKZuo60POY=",
+  "Hash": "nd5Yz4OVJE5248alhSlbQniL5Sj8Grz/O/D3xUSow/Y=",
   "Source": "Cs-Hub",
   "BasePath": "_content/Cs-Hub",
   "Mode": "Default",
@@ -1252,6 +1252,25 @@
       "OriginalItemSpec": "wwwroot\\uploads\\65fe4738-88ae-4b72-bf14-b0d9989dcedd_L0_COMMANDS_LIST (1).pdf"
     },
     {
+      "Identity": "C:\\Users\\ZIAD\\Documents\\GitHub\\Cs-Hub\\Backend\\wwwroot\\uploads\\a03198ce-c724-424d-b67e-1b8f392cf8a4_depi_gig.pdf",
+      "SourceId": "Cs-Hub",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\ZIAD\\Documents\\GitHub\\Cs-Hub\\Backend\\wwwroot\\",
+      "BasePath": "_content/Cs-Hub",
+      "RelativePath": "uploads/a03198ce-c724-424d-b67e-1b8f392cf8a4_depi_gig.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\a03198ce-c724-424d-b67e-1b8f392cf8a4_depi_gig.pdf"
+    },
+    {
       "Identity": "C:\\Users\\ZIAD\\Documents\\GitHub\\Cs-Hub\\Backend\\wwwroot\\uploads\\bde2aca8-fc7b-4af4-9868-2accdc2861a1_My Portfolio (1).pdf",
       "SourceId": "Cs-Hub",
       "SourceType": "Discovered",
@@ -1269,6 +1288,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\uploads\\bde2aca8-fc7b-4af4-9868-2accdc2861a1_My Portfolio (1).pdf"
+    },
+    {
+      "Identity": "C:\\Users\\ZIAD\\Documents\\GitHub\\Cs-Hub\\Backend\\wwwroot\\uploads\\c9c0b600-5b3f-4472-b40d-444b04bef258_My Portfolio (1) (2).pdf",
+      "SourceId": "Cs-Hub",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\ZIAD\\Documents\\GitHub\\Cs-Hub\\Backend\\wwwroot\\",
+      "BasePath": "_content/Cs-Hub",
+      "RelativePath": "uploads/c9c0b600-5b3f-4472-b40d-444b04bef258_My Portfolio (1) (2).pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\c9c0b600-5b3f-4472-b40d-444b04bef258_My Portfolio (1) (2).pdf"
     },
     {
       "Identity": "C:\\Users\\ZIAD\\Documents\\GitHub\\Cs-Hub\\Backend\\wwwroot\\uploads\\ecf5ba07-6fff-4dce-afa9-5a4fe916dcb2_My Portfolio (1).pdf",

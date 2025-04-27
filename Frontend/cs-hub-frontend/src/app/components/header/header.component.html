@@ -3,6 +3,9 @@
     <div class="logo" (click)="router.navigate(['/home'])" style="cursor:pointer;">
       <h1>CS Hub</h1>
     </div>
+    <nav class="main-nav">
+      <button mat-button (click)="router.navigate(['/my-resources'])">My Resources</button>
+    </nav>
     <div class="user-actions">
       <button mat-icon-button [matMenuTriggerFor]="menu">
         <mat-icon>account_circle</mat-icon>

@@ -30,4 +30,24 @@
 
 button[mat-icon-button] {
   color: #fff;
+}
+
+.main-nav {
+  margin-left: 2rem;
+  display: flex;
+  align-items: center;
+}
+
+.main-nav button[mat-button] {
+  color: #fff;
+  font-weight: 500;
+  font-size: 1.1rem;
+  margin-right: 1rem;
+  background: transparent;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.main-nav button[mat-button]:hover {
+  background: rgba(255,255,255,0.12);
 } 

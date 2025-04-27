@@ -1,0 +1,136 @@
+<div class="my-resources-container">
+  <h2>My Resources</h2>
+
+  <button mat-raised-button color="primary" (click)="openCreateForm()" style="margin-bottom: 24px;" *ngIf="!showCreateForm && !showEditForm">
+    + Create New Resource
+  </button>
+
+  <form [formGroup]="createForm" (ngSubmit)="submitCreate()" enctype="multipart/form-data" class="resource-form-card" *ngIf="showCreateForm">
+    <div class="vertical-form-group">
+      <label for="title">Title</label>
+      <mat-form-field appearance="fill">
+        <input matInput id="title" formControlName="title" required>
+      </mat-form-field>
+    </div>
+    <div class="vertical-form-group">
+      <label for="description">Description</label>
+      <mat-form-field appearance="fill">
+        <textarea matInput id="description" formControlName="description" required></textarea>
+      </mat-form-field>
+    </div>
+    <div class="vertical-form-group">
+      <label for="url">URL</label>
+      <mat-form-field appearance="fill">
+        <input matInput id="url" formControlName="url">
+      </mat-form-field>
+    </div>
+    <div class="vertical-form-group">
+      <label for="categoryId">Category</label>
+      <mat-form-field appearance="fill">
+        <mat-select id="categoryId" formControlName="categoryId" required>
+          <mat-option *ngFor="let cat of categories" [value]="cat.categoryID">{{ cat.name }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="vertical-form-group">
+      <label for="resourceType">Resource Type</label>
+      <mat-form-field appearance="fill">
+        <input matInput id="resourceType" formControlName="resourceType" required>
+      </mat-form-field>
+    </div>
+    <div class="vertical-form-group">
+      <label for="file">File</label>
+      <input id="file" type="file" (change)="onFileChange($event, createForm)">
+    </div>
+    <div class="form-actions">
+      <button mat-raised-button color="primary" type="submit">Create Resource</button>
+    </div>
+  </form>
+
+  <form [formGroup]="editForm" (ngSubmit)="submitEdit()" enctype="multipart/form-data" class="resource-form-card" *ngIf="showEditForm">
+    <!-- DEBUG: Show current form values and selected resource -->
+    <!-- <div style="background:#f8f8f8; color:#333; font-size:0.95em; padding:8px; margin-bottom:12px; border-radius:4px;">
+      <strong>DEBUG:</strong><br>
+      Form values: {{ editForm.value | json }}<br>
+      Selected resource: {{ selectedResource | json }}
+    </div> -->
+    <div class="vertical-form-group">
+      <label for="edit-title">Title</label>
+      <mat-form-field appearance="fill">
+        <input matInput id="edit-title" formControlName="title" required>
+      </mat-form-field>
+    </div>
+    <div class="vertical-form-group">
+      <label for="edit-description">Description</label>
+      <mat-form-field appearance="fill">
+        <textarea matInput id="edit-description" formControlName="description" required></textarea>
+      </mat-form-field>
+    </div>
+    <div class="vertical-form-group">
+      <label for="edit-url">URL</label>
+      <mat-form-field appearance="fill">
+        <input matInput id="edit-url" formControlName="url">
+      </mat-form-field>
+    </div>
+    <div class="vertical-form-group">
+      <label for="edit-categoryId">Category</label>
+      <mat-form-field appearance="fill">
+        <mat-select id="edit-categoryId" formControlName="categoryId" required>
+          <mat-option *ngFor="let cat of categories" [value]="cat.categoryID">{{ cat.name }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="vertical-form-group">
+      <label for="edit-resourceType">Resource Type</label>
+      <mat-form-field appearance="fill">
+        <input matInput id="edit-resourceType" formControlName="resourceType" required>
+      </mat-form-field>
+    </div>
+    <div class="vertical-form-group">
+      <label for="edit-file">File</label>
+      <input id="edit-file" type="file" (change)="onFileChange($event, editForm)">
+    </div>
+    <div class="form-actions">
+      <button mat-raised-button color="primary" type="submit">Save Changes</button>
+      <button mat-raised-button color="warn" type="button" (click)="closeEditForm()">Cancel</button>
+    </div>
+  </form>
+
+  <div *ngIf="isLoading" class="loading-spinner">
+    <mat-spinner></mat-spinner>
+    <p>Loading your resources...</p>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <div *ngIf="!isLoading && resources.length === 0 && !showCreateForm && !showEditForm">
+    <p>You have not created any resources yet.</p>
+  </div>
+
+  <div class="resources-list" *ngIf="resources.length > 0 && !showCreateForm && !showEditForm">
+    <mat-card class="resource-card" *ngFor="let resource of resources">
+      <div class="resource-header">
+        <h3>{{ resource.title }}</h3>
+        <div class="resource-actions">
+          <button mat-icon-button color="primary" (click)="openEditForm(resource)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteResource(resource.resourceID)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+      <div class="resource-details">
+        <p><strong>Description:</strong> {{ resource.description }}</p>
+        <p><strong>Type:</strong> {{ resource.resourceType }}</p>
+        <p><strong>Category:</strong> {{ resource.category?.name }}</p>
+        <p *ngIf="resource.url"><strong>URL:</strong> <a [href]="resource.url" target="_blank">{{ resource.url }}</a></p>
+        <p *ngIf="resource.filePath"><strong>File:</strong> <a [href]="resource.filePath" target="_blank">Download</a></p>
+        <p><strong>Status:</strong> {{ resource.status }}</p>
+        <p><strong>Created At:</strong> {{ resource.createdAt | date:'medium' }}</p>
+      </div>
+    </mat-card>
+  </div>
+</div> 

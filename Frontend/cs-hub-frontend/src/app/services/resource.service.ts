@@ -30,4 +30,12 @@ export class ResourceService {
   updateResource(id: number, resourceData: FormData): Observable<any> {
     return this.http.put(`${this.apiUrl}/update_resource/${id}`, resourceData);
   }
+
+  getResourcesByUserId(userId: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/user/${userId}/resources`);
+  }
+
+  getAllCategories(): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/api/category/all-categories`);
+  }
 } 

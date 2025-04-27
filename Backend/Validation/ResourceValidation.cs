@@ -16,17 +16,17 @@ namespace Cs_Hub.Validator
               .WithMessage("User id is required")
               .MaximumLength(20).WithMessage("Max length is 225 ,Try again!");
 
-            RuleFor(x => x.URL).NotEmpty()
-              .WithMessage("Url is required")
-              .MaximumLength(2083).WithMessage("Max length is 2083 ,Try again!");
+            // RuleFor(x => x.URL).NotEmpty()
+            //   .WithMessage("Url is required")
+            //   .MaximumLength(2083).WithMessage("Max length is 2083 ,Try again!");
 
-            RuleFor(x => x.FilePath).NotEmpty()
-              .WithMessage("File path is required")
-              .MaximumLength(500).WithMessage("Max length is 500 ,Try again!");
+            // RuleFor(x => x.FilePath).NotEmpty()
+            //   .WithMessage("File path is required")
+            //   .MaximumLength(500).WithMessage("Max length is 500 ,Try again!");
 
-            RuleFor(x => x.Status).NotEmpty()
-             .WithMessage("Status is required")
-             .MaximumLength(20).WithMessage("Max length is 20 ,Try again!");
+            // RuleFor(x => x.Status).NotEmpty()
+            //  .WithMessage("Status is required")
+            //  .MaximumLength(20).WithMessage("Max length is 20 ,Try again!");
 
             RuleFor(x => x.CategoryID).NotEmpty()
              .WithMessage("Category id is required");

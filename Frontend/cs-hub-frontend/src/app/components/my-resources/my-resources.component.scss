@@ -1,0 +1,108 @@
+.my-resources-container {
+  max-width: 900px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+  padding: 32px;
+  min-height: 400px;
+}
+
+h2 {
+  margin-bottom: 2rem;
+  color: #1976d2;
+  font-weight: 700;
+}
+
+.resource-form-card {
+  max-width: 500px;
+  margin: 0 auto 24px auto;
+  padding: 24px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 16px;
+}
+
+.resources-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.resource-card {
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.resource-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.resource-actions button {
+  margin-left: 8px;
+}
+
+.resource-details p {
+  margin: 0 0 6px 0;
+}
+
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.error-message {
+  color: #d32f2f;
+  background: #ffebee;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.vertical-form-group {
+  width: 90%;
+  margin: 0 auto 18px auto;
+}
+
+.vertical-form-group label {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.vertical-form-group mat-form-field,
+.vertical-form-group input,
+.vertical-form-group textarea {
+  width: 100%;
+  min-width: 320px;
+  max-width: 600px;
+  font-size: 1.1rem;
+}
+
+.vertical-form-group input[type="file"] {
+  font-size: 1.05rem;
+  padding: 10px 0;
+  width: 100%;
+  min-width: 320px;
+  max-width: 600px;
+}
+
+.form-actions button {
+  min-width: 140px;
+  font-size: 1.05rem;
+  padding: 10px 20px;
+} 
