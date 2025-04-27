@@ -1,28 +1,4 @@
-<!-- Header -->
-<header class="header">
-  <div class="header-content">
-    <div class="logo">
-      <h1>CS Hub</h1>
-    </div>
-    <div class="user-actions">
-      <button mat-icon-button [matMenuTriggerFor]="menu">
-        <mat-icon>account_circle</mat-icon>
-      </button>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="navigateToProfile()">
-          <mat-icon>person</mat-icon>
-          <span>Profile</span>
-        </button>
-        <button mat-menu-item (click)="logout()">
-          <mat-icon>logout</mat-icon>
-          <span>Logout</span>
-        </button>
-      </mat-menu>
-    </div>
-  </div>
-</header>
-
-<!-- Main Content -->
+<!-- Remove header and footer, keep only the main content -->
 <main class="main-content">
   <div class="container">
     <!-- Loading State -->
@@ -115,6 +91,7 @@
       </mat-card>
     </div>
   </div>
+<<<<<<< HEAD
 </main>
 
 <!-- Footer -->
@@ -146,3 +123,6 @@
     <p>&copy; 2024 CS Hub. All rights reserved.</p>
   </div>
 </footer>
+=======
+</main> 
+>>>>>>> 245fdfc50bc13183d5b30f360cba8c44c74fe1aa

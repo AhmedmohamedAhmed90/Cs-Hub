@@ -1,0 +1,33 @@
+.profile-container {
+  max-width: 600px;
+  width: 100%;
+  margin: 60px auto;
+  padding: 40px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+}
+
+:host {
+  display: block;
+  min-height: 100vh;
+  
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+button[type="submit"] {
+  width: 100%;
+  font-size: 18px;
+  padding: 14px 0;
+}
+
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 80px;
+} 

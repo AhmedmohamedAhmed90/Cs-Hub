@@ -13,7 +13,11 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Cs-Hub")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
+<<<<<<< HEAD
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+=======
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7a2c29c5f6f98744bd16f9e9b8c0eaac46a39f26")]
+>>>>>>> 245fdfc50bc13183d5b30f360cba8c44c74fe1aa
 [assembly: System.Reflection.AssemblyProductAttribute("Cs-Hub")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Cs-Hub")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

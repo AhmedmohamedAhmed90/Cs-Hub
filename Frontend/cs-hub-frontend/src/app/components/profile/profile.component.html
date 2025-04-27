@@ -1,0 +1,35 @@
+<div class="profile-container" *ngIf="!isLoading; else loading">
+  <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill">
+      <mat-label>Full Name</mat-label>
+      <input matInput formControlName="fullName" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Age</mat-label>
+      <input matInput type="number" formControlName="age" required min="0" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Address</mat-label>
+      <input matInput formControlName="address" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" [disabled]="true" />
+    </mat-form-field>
+
+    <!-- Add more fields as needed -->
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="profileForm.invalid || isLoading">
+      Save Changes
+    </button>
+  </form>
+</div>
+<ng-template #loading>
+  <div class="loading-spinner">
+    <mat-spinner></mat-spinner>
+    <p>Loading profile...</p>
+  </div>
+</ng-template> 

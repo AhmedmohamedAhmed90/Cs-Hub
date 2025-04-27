@@ -5,8 +5,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
+
 import { HttpClientModule } from '@angular/common/http';
 
 @Component({
@@ -19,10 +20,10 @@ import { HttpClientModule } from '@angular/common/http';
     MatInputModule,
     MatButtonModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule,
   ],
   providers: [
-    AuthService,
     { provide: 'API_URL', useValue: 'http://localhost:5000' }
   ],
   templateUrl: './login.component.html',
@@ -48,6 +49,7 @@ export class LoginComponent {
       this.authService.login(this.loginForm.value).subscribe({
         next: (response) => {
           localStorage.setItem('currentUser', JSON.stringify(response));
+          this.authService.setUserId(response.id); // Adjust path if needed
           this.router.navigate(['/home']);
         },
         error: (err) => {
