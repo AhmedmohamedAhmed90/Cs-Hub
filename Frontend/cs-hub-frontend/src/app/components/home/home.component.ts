@@ -29,7 +29,7 @@ import { AuthService } from '../../services/auth.service';
     MatChipsModule,
     HttpClientModule
   ],
-  providers: [ResourceService, AuthService],
+  providers: [ResourceService],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
@@ -46,6 +46,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadResources();
+    console.log('ROUTES:', this.router.config);
   }
 
   loadResources(): void {

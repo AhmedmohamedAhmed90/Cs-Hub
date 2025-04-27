@@ -22,7 +22,6 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule
   ],
   providers: [
-    AuthService,
     { provide: 'API_URL', useValue: 'http://localhost:5000' }
   ],
   templateUrl: './login.component.html',
@@ -48,6 +47,7 @@ export class LoginComponent {
       this.authService.login(this.loginForm.value).subscribe({
         next: (response) => {
           localStorage.setItem('currentUser', JSON.stringify(response));
+          this.authService.setUserId(response.id); // Adjust path if needed
           this.router.navigate(['/home']);
         },
         error: (err) => {
