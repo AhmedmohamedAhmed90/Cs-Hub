@@ -20,7 +20,15 @@ export class CommentService {
   }
 
   updateComment(commentId: number, content: string): Observable<any> {
-    return this.http.put(`${this.apiUrl}/update_comment/${commentId}`, { content });
+    return this.http.put(
+      `${this.apiUrl}/update_comment/${commentId}`,
+      JSON.stringify(content),
+      {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+    );
   }
 
   deleteComment(commentId: number): Observable<any> {

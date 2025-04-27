@@ -19,8 +19,8 @@ export class ReviewService {
     return this.http.post(`${this.apiUrl}/create_review`, reviewData);
   }
 
-  updateReview(reviewId: number, newRating: number): Observable<any> {
-    return this.http.put(`${this.apiUrl}/update_review/${reviewId}`, { newrating: newRating });
+  updateReview(reviewId: number, rating: number): Observable<any> {
+    return this.http.put(`${this.apiUrl}/update_review/${reviewId}?newrating=${rating}`, null);
   }
 
   deleteReview(reviewId: number): Observable<any> {

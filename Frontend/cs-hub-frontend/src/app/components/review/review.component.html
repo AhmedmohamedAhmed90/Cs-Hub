@@ -1,44 +1,85 @@
 <div class="review-container">
   <h2>Reviews</h2>
 
-  <!-- Add Review Section -->
-  <div class="add-review-section" *ngIf="currentUser">
+  <div class="add-review-section">
     <h3>Add Your Review</h3>
-    <div class="star-rating">
-      <span *ngFor="let star of stars" (click)="setRating(star)">
-        <mat-icon [class.active]="star <= userRating">star</mat-icon>
+    <div class="rating-stars">
+      <span *ngFor="let star of [1, 2, 3, 4, 5]" (click)="setRating(star)">
+        <mat-icon>{{
+          star <= selectedRating ? "star" : "star_border"
+        }}</mat-icon>
       </span>
     </div>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="submitReview()"
+      [disabled]="!selectedRating"
+    >
+      Submit Review
+    </button>
   </div>
 
-  <!-- Reviews List -->
-  <div class="reviews-list">
-    <mat-card *ngFor="let review of reviews" class="review-card">
+  <div class="reviews-list" *ngIf="reviews.length > 0">
+    <mat-card class="review-card" *ngFor="let review of reviews">
       <mat-card-header>
-        <mat-card-title>{{ review.User.FullName }}</mat-card-title>
+        <div class="user-avatar" mat-card-avatar>
+          {{ review.user.fullName.charAt(0).toUpperCase() }}
+        </div>
+        <mat-card-title>{{ review.user.fullName }}</mat-card-title>
         <mat-card-subtitle>{{
-          review.CreatedAt | date : "medium"
+          review.createdAt | date : "medium"
         }}</mat-card-subtitle>
       </mat-card-header>
+
       <mat-card-content>
-        <div class="star-rating">
-          <span *ngFor="let star of stars">
-            <mat-icon [class.active]="star <= review.Rating">star</mat-icon>
+        <div class="rating-display">
+          <span *ngFor="let star of [1, 2, 3, 4, 5]">
+            <mat-icon>{{
+              star <= review.rating ? "star" : "star_border"
+            }}</mat-icon>
           </span>
         </div>
       </mat-card-content>
+
       <mat-card-actions *ngIf="isUserReview(review)">
-        <button
-          mat-button
-          color="primary"
-          (click)="updateReview(review.ReviewID, review.Rating)"
-        >
-          <mat-icon>edit</mat-icon> Edit
+        <button mat-icon-button color="primary" (click)="editReview(review)">
+          <mat-icon>edit</mat-icon>
         </button>
-        <button mat-button color="warn" (click)="deleteReview(review.ReviewID)">
-          <mat-icon>delete</mat-icon> Delete
+        <button
+          mat-icon-button
+          color="warn"
+          (click)="deleteReview(review.reviewID)"
+        >
+          <mat-icon>delete</mat-icon>
         </button>
       </mat-card-actions>
+
+      <div
+        class="edit-review-form"
+        *ngIf="editingReview?.reviewID === review.reviewID"
+      >
+        <div class="rating-stars">
+          <span
+            *ngFor="let star of [1, 2, 3, 4, 5]"
+            (click)="setEditRating(star)"
+          >
+            <mat-icon>{{
+              star <= editRating ? "star" : "star_border"
+            }}</mat-icon>
+          </span>
+        </div>
+        <div class="edit-actions">
+          <button mat-button (click)="cancelEdit()">Cancel</button>
+          <button mat-raised-button color="primary" (click)="updateReview()">
+            Update
+          </button>
+        </div>
+      </div>
     </mat-card>
+  </div>
+
+  <div class="no-reviews" *ngIf="reviews.length === 0">
+    <p>No reviews yet. Be the first to review!</p>
   </div>
 </div>
