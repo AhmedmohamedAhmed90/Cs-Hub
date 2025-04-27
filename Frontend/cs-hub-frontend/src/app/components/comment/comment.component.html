@@ -1,0 +1,77 @@
+<div class="comment-container">
+  <h2>Comments</h2>
+
+  <div class="add-comment-section">
+    <h3>Add Your Comment</h3>
+    <div class="comment-form">
+      <textarea
+        [(ngModel)]="newComment"
+        placeholder="Write your comment here..."
+        rows="4"
+      ></textarea>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="addComment()"
+        [disabled]="!newComment.trim()"
+      >
+        Post Comment
+      </button>
+    </div>
+  </div>
+
+  <div class="comments-list" *ngIf="comments.length > 0">
+    <mat-card class="comment-card" *ngFor="let comment of comments">
+      <mat-card-header>
+        <div class="user-avatar" mat-card-avatar>
+          {{ comment.user.fullName.charAt(0).toUpperCase() }}
+        </div>
+        <mat-card-title>{{ comment.user.fullName }}</mat-card-title>
+        <mat-card-subtitle>{{ comment.user.email }}</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <p>{{ comment.content }}</p>
+      </mat-card-content>
+
+      <mat-card-actions *ngIf="isUserComment(comment)">
+        <button mat-icon-button color="primary" (click)="editComment(comment)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          color="warn"
+          (click)="deleteComment(comment.commentID)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-card-actions>
+
+      <div
+        class="edit-comment-form"
+        *ngIf="editingComment?.commentID === comment.commentID"
+      >
+        <textarea
+          [(ngModel)]="editContent"
+          placeholder="Edit your comment..."
+          rows="4"
+        ></textarea>
+        <div class="edit-actions">
+          <button mat-button (click)="cancelEdit()">Cancel</button>
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="updateComment()"
+            [disabled]="!editContent.trim()"
+          >
+            Update
+          </button>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+
+  <div class="no-comments" *ngIf="comments.length === 0">
+    <p>No comments yet. Be the first to comment!</p>
+  </div>
+</div>

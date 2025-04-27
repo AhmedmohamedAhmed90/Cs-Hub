@@ -8,7 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatChipsModule } from '@angular/material/chips';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { ResourceService } from '../../services/resource.service';
 import { Resource } from '../../models/resource.model';
@@ -27,7 +27,8 @@ import { AuthService } from '../../services/auth.service';
     MatInputModule,
     MatMenuModule,
     MatChipsModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule
   ],
   providers: [ResourceService],
   templateUrl: './home.component.html',
@@ -94,5 +95,21 @@ export class HomeComponent implements OnInit {
   isImage(filePath: string): boolean {
     const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp'];
     return imageExtensions.some(ext => filePath.toLowerCase().endsWith(ext));
+  }
+
+  navigateToReviews(resourceId: number): void {
+    this.router.navigate(['/reviews', resourceId]).then(success => {
+      if (!success) {
+        console.error('Navigation to reviews failed');
+      }
+    });
+  }
+
+  navigateToComments(resourceId: number): void {
+    this.router.navigate(['/comments', resourceId]).then(success => {
+      if (!success) {
+        console.error('Navigation to comments failed');
+      }
+    });
   }
 } 
