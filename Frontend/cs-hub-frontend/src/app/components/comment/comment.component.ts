@@ -8,6 +8,8 @@ import { CommentService } from '../../services/comment.service';
 import { AuthService } from '../../services/auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../shared/confirm-dialog.component';
 
 interface Comment {
   commentID: number;
@@ -45,7 +47,8 @@ export class CommentComponent implements OnInit {
     private commentService: CommentService,
     private authService: AuthService,
     private route: ActivatedRoute,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
   ) {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
   }
@@ -63,7 +66,15 @@ export class CommentComponent implements OnInit {
         this.comments = response.comments;
       },
       error: (err) => {
-        this.snackBar.open('Error loading comments', 'Close', { duration: 3000 });
+        if (
+          err.status === 404 &&
+          (err.error?.message === 'No comments found for this resource' ||
+           err.error?.message?.toLowerCase().includes('no comments'))
+        ) {
+          this.comments = [];
+        } else {
+          this.snackBar.open('Error loading comments', 'Close', { duration: 3000 });
+        }
       }
     });
   }
@@ -134,17 +145,25 @@ export class CommentComponent implements OnInit {
   }
 
   deleteComment(commentId: number): void {
-    if (confirm('Are you sure you want to delete this comment?')) {
-      this.commentService.deleteComment(commentId).subscribe({
-        next: () => {
-          this.snackBar.open('Comment deleted successfully', 'Close', { duration: 3000 });
-          this.loadComments();
-        },
-        error: (err) => {
-          this.snackBar.open('Error deleting comment', 'Close', { duration: 3000 });
-        }
-      });
-    }
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        title: 'Delete Comment',
+        message: 'Are you sure you want to delete this comment? This action cannot be undone.'
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.commentService.deleteComment(commentId).subscribe({
+          next: () => {
+            this.snackBar.open('Comment deleted successfully', 'Close', { duration: 3000 });
+            this.loadComments();
+          },
+          error: (err) => {
+            this.snackBar.open('Error deleting comment', 'Close', { duration: 3000 });
+          }
+        });
+      }
+    });
   }
 
   cancelEdit(): void {

@@ -8,6 +8,8 @@ import { ReviewService } from '../../services/review.service';
 import { AuthService } from '../../services/auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../shared/confirm-dialog.component';
 
 interface Review {
   reviewID: number;
@@ -32,7 +34,8 @@ interface Review {
     MatCardModule,
     MatButtonModule,
     MatIconModule,
-    FormsModule
+    FormsModule,
+    MatDialogModule
   ],
   templateUrl: './review.component.html',
   styleUrls: ['./review.component.scss']
@@ -49,7 +52,8 @@ export class ReviewComponent implements OnInit {
     private reviewService: ReviewService,
     private authService: AuthService,
     private route: ActivatedRoute,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
   ) {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
   }
@@ -67,7 +71,15 @@ export class ReviewComponent implements OnInit {
         this.reviews = response;
       },
       error: (err) => {
-        this.snackBar.open('Error loading reviews', 'Close', { duration: 3000 });
+        if (
+          err.status === 404 &&
+          (err.error?.message === 'No reviews found for this resource' ||
+           err.error?.message?.toLowerCase().includes('no reviews'))
+        ) {
+          this.reviews = [];
+        } else {
+          this.snackBar.open('Error loading reviews', 'Close', { duration: 3000 });
+        }
       }
     });
   }
@@ -146,17 +158,25 @@ export class ReviewComponent implements OnInit {
   }
 
   deleteReview(reviewId: number): void {
-    if (confirm('Are you sure you want to delete this review?')) {
-      this.reviewService.deleteReview(reviewId).subscribe({
-        next: () => {
-          this.snackBar.open('Review deleted successfully', 'Close', { duration: 3000 });
-          this.loadReviews();
-        },
-        error: (err) => {
-          this.snackBar.open('Error deleting review', 'Close', { duration: 3000 });
-        }
-      });
-    }
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        title: 'Delete Review',
+        message: 'Are you sure you want to delete this review? This action cannot be undone.'
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.reviewService.deleteReview(reviewId).subscribe({
+          next: () => {
+            this.snackBar.open('Review deleted successfully', 'Close', { duration: 3000 });
+            this.loadReviews();
+          },
+          error: (err) => {
+            this.snackBar.open('Error deleting review', 'Close', { duration: 3000 });
+          }
+        });
+      }
+    });
   }
 
   cancelEdit(): void {
