@@ -86,7 +86,39 @@ namespace Cs_Hub.Controllers
             return Ok(reviews);
         }
 
+        [HttpGet("get_reviews_by_resource/{resourceId}")]
+        public async Task<IActionResult> GetReviewsByResourceId([FromRoute] int resourceId)
+        {
+            var reviews = await _DbContext.Reviews
+                .Include(r => r.User)
+                .Include(r => r.Resource)
+                .Where(r => r.ResourceID == resourceId)
+                .Select(r => new
+                {
+                    r.ReviewID,
+                    r.Rating,
+                    r.CreatedAt,
+                    User = new
+                    {
+                        r.User.Id,
+                        r.User.FullName,
+                        r.User.Email
+                    },
+                    Resource = new
+                    {
+                        r.Resource.ResourceID,
+                        r.Resource.Title
+                    }
+                })
+                .ToListAsync();
 
+            if (!reviews.Any())
+            {
+                return NotFound(new { message = "No reviews found for this resource" });
+            }
+
+            return Ok(reviews);
+        }
 
         [HttpGet("get_review/{id}")]
         public async Task<IActionResult> GetReviewById([FromRoute] int id)

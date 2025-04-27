@@ -48,7 +48,9 @@
             <mat-icon class="user-avatar">account_circle</mat-icon>
             <div class="user-details">
               <span class="username">{{ resource.user.fullName }}</span>
-              <span class="post-time">{{ resource.createdAt | date:'medium' }}</span>
+              <span class="post-time">{{
+                resource.createdAt | date : "medium"
+              }}</span>
             </div>
           </div>
           <div class="resource-category">
@@ -59,9 +61,13 @@
         <div class="card-content">
           <h2 class="resource-title">{{ resource.title }}</h2>
           <p class="resource-description">{{ resource.description }}</p>
-          
+
           <div class="resource-preview" *ngIf="resource.filePath">
-            <img [src]="resource.filePath" alt="Resource preview" *ngIf="isImage(resource.filePath)">
+            <img
+              [src]="resource.filePath"
+              alt="Resource preview"
+              *ngIf="isImage(resource.filePath)"
+            />
             <div class="file-preview" *ngIf="!isImage(resource.filePath)">
               <mat-icon>insert_drive_file</mat-icon>
               <span>File Attachment</span>
@@ -70,24 +76,41 @@
         </div>
 
         <div class="card-actions">
-          <button mat-button color="primary" (click)="openUrl(resource.url)" *ngIf="resource.url">
+          <button
+            mat-button
+            color="primary"
+            (click)="openUrl(resource.url)"
+            *ngIf="resource.url"
+          >
             <mat-icon>open_in_new</mat-icon>
             Visit
           </button>
-          <button mat-button color="primary" (click)="downloadFile(resource.filePath)" *ngIf="resource.filePath">
+          <button
+            mat-button
+            color="primary"
+            (click)="downloadFile(resource.filePath)"
+            *ngIf="resource.filePath"
+          >
             <mat-icon>download</mat-icon>
             Download
           </button>
+          <button
+            mat-button
+            color="primary"
+            (click)="navigateToReviews(resource.resourceID)"
+            routerLinkActive="active"
+          >
+            <mat-icon>star</mat-icon> Reviews
+          </button>
+          <button
+            mat-button
+            color="primary"
+            (click)="navigateToComments(resource.resourceID)"
+            routerLinkActive="active"
+          >
+            <mat-icon>comment</mat-icon> Comments
+          </button>
           <div class="spacer"></div>
-          <button mat-icon-button>
-            <mat-icon>favorite_border</mat-icon>
-          </button>
-          <button mat-icon-button>
-            <mat-icon>comment</mat-icon>
-          </button>
-          <button mat-icon-button>
-            <mat-icon>share</mat-icon>
-          </button>
         </div>
       </mat-card>
     </div>
@@ -122,4 +145,4 @@
   <div class="footer-bottom">
     <p>&copy; 2024 CS Hub. All rights reserved.</p>
   </div>
-</footer> 
+</footer>

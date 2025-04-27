@@ -1,0 +1,44 @@
+<div class="review-container">
+  <h2>Reviews</h2>
+
+  <!-- Add Review Section -->
+  <div class="add-review-section" *ngIf="currentUser">
+    <h3>Add Your Review</h3>
+    <div class="star-rating">
+      <span *ngFor="let star of stars" (click)="setRating(star)">
+        <mat-icon [class.active]="star <= userRating">star</mat-icon>
+      </span>
+    </div>
+  </div>
+
+  <!-- Reviews List -->
+  <div class="reviews-list">
+    <mat-card *ngFor="let review of reviews" class="review-card">
+      <mat-card-header>
+        <mat-card-title>{{ review.User.FullName }}</mat-card-title>
+        <mat-card-subtitle>{{
+          review.CreatedAt | date : "medium"
+        }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="star-rating">
+          <span *ngFor="let star of stars">
+            <mat-icon [class.active]="star <= review.Rating">star</mat-icon>
+          </span>
+        </div>
+      </mat-card-content>
+      <mat-card-actions *ngIf="isUserReview(review)">
+        <button
+          mat-button
+          color="primary"
+          (click)="updateReview(review.ReviewID, review.Rating)"
+        >
+          <mat-icon>edit</mat-icon> Edit
+        </button>
+        <button mat-button color="warn" (click)="deleteReview(review.ReviewID)">
+          <mat-icon>delete</mat-icon> Delete
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
