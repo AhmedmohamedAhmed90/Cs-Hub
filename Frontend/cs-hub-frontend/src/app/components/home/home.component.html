@@ -1,6 +1,20 @@
 <!-- Remove header and footer, keep only the main content -->
 <main class="main-content">
   <div class="container">
+    <!-- Search Input -->
+    <mat-form-field appearance="outline" class="search-bar">
+      <mat-label>Search resources</mat-label>
+      <input
+        matInput
+        [(ngModel)]="searchQuery"
+        (ngModelChange)="onSearchChange($event)"
+        placeholder="Enter keyword..."
+      />
+      <button mat-icon-button matSuffix>
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
+
     <!-- Loading State -->
     <div class="loading-container" *ngIf="loading">
       <mat-spinner diameter="50"></mat-spinner>
@@ -23,14 +37,16 @@
           <div class="user-info">
             <mat-icon class="user-avatar">account_circle</mat-icon>
             <div class="user-details">
-              <span class="username">{{ resource.user.fullName }}</span>
+              <span class="username">{{
+                resource.user?.fullName || "Unknown User"
+              }}</span>
               <span class="post-time">{{
                 resource.createdAt | date : "medium"
               }}</span>
             </div>
           </div>
           <div class="resource-category">
-            <mat-chip>{{ resource.category.name }}</mat-chip>
+            <mat-chip>{{ resource.category?.name || "No Category" }}</mat-chip>
           </div>
         </div>
 
@@ -87,7 +103,6 @@
       </mat-card>
     </div>
   </div>
-
 </main>
 
 <!-- Footer

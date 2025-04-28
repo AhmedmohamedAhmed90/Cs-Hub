@@ -11471,26 +11471,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ZIAD\\.nuget\\packages\\": {}
+    "C:\\Users\\Lenovo\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ZIAD\\Documents\\GitHub\\Cs-Hub\\Backend\\Cs-Hub.csproj",
+      "projectUniqueName": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\CSHUB\\Cs-Hub\\Backend\\Cs-Hub.csproj",
       "projectName": "Cs-Hub",
-      "projectPath": "C:\\Users\\ZIAD\\Documents\\GitHub\\Cs-Hub\\Backend\\Cs-Hub.csproj",
-      "packagesPath": "C:\\Users\\ZIAD\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ZIAD\\Documents\\GitHub\\Cs-Hub\\Backend\\obj\\",
+      "projectPath": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\CSHUB\\Cs-Hub\\Backend\\Cs-Hub.csproj",
+      "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\CSHUB\\Cs-Hub\\Backend\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\ZIAD\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\Lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -11503,11 +11501,6 @@
         "warnAsError": [
           "NU1605"
         ]
-      },
-      "restoreAuditProperties": {
-        "enableAudit": "true",
-        "auditLevel": "low",
-        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -11564,24 +11557,6 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[6.0.31, 6.0.31]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Host.win-x64",
-            "version": "[6.0.31, 6.0.31]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Ref",
-            "version": "[6.0.31, 6.0.31]"
-          },
-          {
-            "name": "Microsoft.WindowsDesktop.App.Ref",
-            "version": "[6.0.31, 6.0.31]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -11590,7 +11565,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.206\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.428\\RuntimeIdentifierGraph.json"
       }
     }
   }

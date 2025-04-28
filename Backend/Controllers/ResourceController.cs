@@ -470,57 +470,57 @@ namespace Cs_Hub.Controllers
 
 
         [HttpGet("user/{userId}/resources")]
-public async Task<IActionResult> GetResourcesByUserId([FromRoute] string userId)
-{
-    var resources = await _DbContext.Resources
-        .Where(r => r.UserID == userId)
-        .Include(r => r.Reviews)
-        .Include(r => r.Comments)
-        .Include(r => r.Category)
-        .Include(r => r.User)
-        .Select(r => new
+        public async Task<IActionResult> GetResourcesByUserId([FromRoute] string userId)
         {
-            r.ResourceID,
-            r.Title,
-            r.Description,
-            r.ResourceType,
-            r.URL,
-            r.FilePath,
-            r.Status,
-            r.CreatedAt,
-            User = new
-            {
-                r.User.Id,
-                r.User.FullName,
-                r.User.Email
-            },
-            Category = new
-            {
-                r.Category.CategoryID,
-                r.Category.Name
-            },
-            Reviews = r.Reviews.Select(review => new
-            {
-                review.ReviewID,
-                review.Rating,
-                review.CreatedAt
-            }),
-            Comments = r.Comments.Select(comment => new
-            {
-                comment.CommentID,
-                comment.Content,
-                comment.CreatedAt
-            })
-        })
-        .ToListAsync();
+            var resources = await _DbContext.Resources
+                .Where(r => r.UserID == userId)
+                .Include(r => r.Reviews)
+                .Include(r => r.Comments)
+                .Include(r => r.Category)
+                .Include(r => r.User)
+                .Select(r => new
+                {
+                    r.ResourceID,
+                    r.Title,
+                    r.Description,
+                    r.ResourceType,
+                    r.URL,
+                    r.FilePath,
+                    r.Status,
+                    r.CreatedAt,
+                    User = new
+                    {
+                        r.User.Id,
+                        r.User.FullName,
+                        r.User.Email
+                    },
+                    Category = new
+                    {
+                        r.Category.CategoryID,
+                        r.Category.Name
+                    },
+                    Reviews = r.Reviews.Select(review => new
+                    {
+                        review.ReviewID,
+                        review.Rating,
+                        review.CreatedAt
+                    }),
+                    Comments = r.Comments.Select(comment => new
+                    {
+                        comment.CommentID,
+                        comment.Content,
+                        comment.CreatedAt
+                    })
+                })
+                .ToListAsync();
 
-    if (!resources.Any())
-    {
-        return NotFound(new { message = "No resources found for this user." });
-    }
+            if (!resources.Any())
+            {
+                return NotFound(new { message = "No resources found for this user." });
+            }
 
-    return Ok(new { message = "Resources found", resources });
-}
+            return Ok(new { message = "Resources found", resources });
+        }
 
         /*     public async Task<IActionResult> Edit(int id)
              {
@@ -611,8 +611,56 @@ public async Task<IActionResult> GetResourcesByUserId([FromRoute] string userId)
              }
         */
 
+        [HttpGet("search")]
+        public async Task<IActionResult> SearchResources([FromQuery] string query)
+        {
+            if (string.IsNullOrWhiteSpace(query))
+                return BadRequest(new { message = "Query is required" });
 
+            var resources = await _DbContext.Resources
+                .Include(r => r.Reviews)
+                .Include(r => r.Comments)
+                .Include(r => r.Category)
+                .Include(r => r.User)
+                .Where(r => r.Title.Contains(query) || r.Description.Contains(query))
+                .Select(r => new
+                {
+                    r.ResourceID,
+                    r.Title,
+                    r.Description,
+                    r.ResourceType,
+                    r.URL,
+                    r.FilePath,
+                    r.Status,
+                    r.CreatedAt,
+                    User = r.User == null ? null : new
+                    {
+                        r.User.Id,
+                        r.User.FullName,
+                        r.User.Email
+                    },
+                    Category = r.Category == null ? null : new
+                    {
+                        r.Category.CategoryID,
+                        r.Category.Name
+                    },
+                    Reviews = r.Reviews.Select(review => new
+                    {
+                        review.ReviewID,
+                        review.Rating,
+                        review.CreatedAt
+                    }),
+                    Comments = r.Comments.Select(comment => new
+                    {
+                        comment.CommentID,
+                        comment.Content,
+                        comment.CreatedAt
+                    })
+                })
+                .ToListAsync();
 
+            return Ok(new { message = "Resources found", resources });
+        }
 
     }
 }

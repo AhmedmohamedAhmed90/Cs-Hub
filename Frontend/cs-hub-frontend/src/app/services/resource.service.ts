@@ -38,4 +38,8 @@ export class ResourceService {
   getAllCategories(): Observable<any> {
     return this.http.get(`${environment.apiUrl}/api/category/all-categories`);
   }
+
+  searchResources(query: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/search?query=${encodeURIComponent(query)}`);
+  }
 } 

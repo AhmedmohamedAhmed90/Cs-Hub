@@ -13,6 +13,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { ResourceService } from '../../services/resource.service';
 import { Resource } from '../../models/resource.model';
 import { AuthService } from '../../services/auth.service';
+import { FormsModule } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -28,7 +31,8 @@ import { AuthService } from '../../services/auth.service';
     MatMenuModule,
     MatChipsModule,
     HttpClientModule,
-    RouterModule
+    RouterModule,
+    FormsModule
   ],
   providers: [ResourceService],
   templateUrl: './home.component.html',
@@ -38,6 +42,8 @@ export class HomeComponent implements OnInit {
   resources: Resource[] = [];
   loading = true;
   error: string | null = null;
+  searchQuery: string = '';
+  private searchSubject = new Subject<string>();
 
   constructor(
     private resourceService: ResourceService,
@@ -47,6 +53,12 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadResources();
+    this.searchSubject.pipe(
+      debounceTime(600),
+      distinctUntilChanged()
+    ).subscribe(query => {
+      this.performSearch(query);
+    });
     console.log('ROUTES:', this.router.config);
   }
 
@@ -109,6 +121,29 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/comments', resourceId]).then(success => {
       if (!success) {
         console.error('Navigation to comments failed');
+      }
+    });
+  }
+
+  onSearchChange(query: string): void {
+    this.loading = true;
+    this.searchSubject.next(query);
+  }
+
+  performSearch(query: string): void {
+    if (!query.trim()) {
+      this.loadResources();
+      return;
+    }
+    this.loading = true;
+    this.resourceService.searchResources(query).subscribe({
+      next: (response: { resources: Resource[] }) => {
+        this.resources = response.resources;
+        this.loading = false;
+      },
+      error: (err: any) => {
+        this.error = err.error?.message || 'Failed to search resources';
+        this.loading = false;
       }
     });
   }

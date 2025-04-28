@@ -10,6 +10,6 @@ namespace ScHub.Interfaces
         Task<bool> Update(Resource Resource);
         Task<bool> Delete(Resource Resource);
         Task<bool> Save();
-
+        Task<IEnumerable<Resource>> Search(string query);
     }
 }

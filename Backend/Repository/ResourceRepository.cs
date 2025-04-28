@@ -50,5 +50,14 @@ namespace Cs_Hub.Repository
             _context.Resources.Update(Resource);
             return Save();
         }
+
+        public async Task<IEnumerable<Resource>> Search(string query)
+        {
+            return await _context.Resources
+                .Include(r => r.User)
+                .Include(r => r.Category)
+                .Where(r => r.Title.Contains(query) || r.Description.Contains(query))
+                .ToListAsync();
+        }
     }
 }
