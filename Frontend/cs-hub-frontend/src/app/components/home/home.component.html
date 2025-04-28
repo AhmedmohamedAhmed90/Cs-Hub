@@ -38,6 +38,11 @@
           <h2 class="resource-title">{{ resource.title }}</h2>
           <p class="resource-description">{{ resource.description }}</p>
 
+          <p *ngIf="resource.url" class="resource-url">
+            <strong>URL:</strong>
+            <a [href]="resource.url" target="_blank">{{ resource.url }}</a>
+          </p>
+
           <div class="resource-preview" *ngIf="resource.filePath">
             <img
               [src]="resource.filePath"
@@ -52,15 +57,6 @@
         </div>
 
         <div class="card-actions">
-          <button
-            mat-button
-            color="primary"
-            (click)="openUrl(resource.url)"
-            *ngIf="resource.url"
-          >
-            <mat-icon>open_in_new</mat-icon>
-            Visit
-          </button>
           <button
             mat-button
             color="primary"
@@ -94,7 +90,7 @@
 
 </main>
 
-<!-- Footer -->
+<!-- Footer
 <footer class="footer">
   <div class="footer-content">
     <div class="footer-section">
@@ -125,4 +121,4 @@
 </footer>
 
 
-
+ -->
