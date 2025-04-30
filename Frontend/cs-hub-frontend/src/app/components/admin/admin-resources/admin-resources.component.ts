@@ -29,7 +29,6 @@ interface Resource {
     MatDialogModule,
     MatSnackBarModule,
     MatCardModule,
-    ConfirmDialogComponent
   ],
   templateUrl: './admin-resources.component.html',
   styleUrls: ['./admin-resources.component.scss']
