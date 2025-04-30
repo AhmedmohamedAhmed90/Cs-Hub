@@ -11471,19 +11471,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Lenovo\\.nuget\\packages\\": {}
+    "C:\\Users\\fatma\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\CSHUB\\Cs-Hub\\Backend\\Cs-Hub.csproj",
+      "projectUniqueName": "C:\\Users\\fatma\\OneDrive\\Dokumenter\\GitHub\\Cs-Hub\\Backend\\Cs-Hub.csproj",
       "projectName": "Cs-Hub",
-      "projectPath": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\CSHUB\\Cs-Hub\\Backend\\Cs-Hub.csproj",
-      "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\CSHUB\\Cs-Hub\\Backend\\obj\\",
+      "projectPath": "C:\\Users\\fatma\\OneDrive\\Dokumenter\\GitHub\\Cs-Hub\\Backend\\Cs-Hub.csproj",
+      "packagesPath": "C:\\Users\\fatma\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\fatma\\OneDrive\\Dokumenter\\GitHub\\Cs-Hub\\Backend\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\fatma\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
