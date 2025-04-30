@@ -1,0 +1,55 @@
+.admin-categories-container {
+  padding: 24px;
+
+  h2 {
+    margin-bottom: 24px;
+    color: #333;
+  }
+
+  .table-container {
+    overflow-x: auto;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 24px;
+
+    table {
+      width: 100%;
+
+      th {
+        font-weight: 600;
+        color: #333;
+      }
+
+      td {
+        color: #666;
+      }
+
+      .mat-column-actions {
+        width: 120px;
+        text-align: center;
+      }
+    }
+  }
+
+  .add-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .admin-categories {
+    padding: 1rem;
+
+    mat-card {
+      padding: 1rem;
+    }
+
+    .table-container {
+      margin: 0 -1rem;
+    }
+  }
+} 

@@ -1,0 +1,52 @@
+<div class="admin-profile">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Admin Profile</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="profile-header">
+        <div class="profile-picture">
+          <img [src]="profileData?.profilePicture || 'assets/default-avatar.png'" alt="Profile Picture">
+          <input type="file" (change)="onFileSelected($event)" accept="image/*" *ngIf="isEditing">
+        </div>
+        <div class="profile-info">
+          <h2>{{ profileData?.name }}</h2>
+          <p>{{ profileData?.email }}</p>
+          <p>Role: {{ profileData?.role }}</p>
+          <p>Member since: {{ profileData?.createdAt | date }}</p>
+        </div>
+      </div>
+
+      <form [formGroup]="profileForm" *ngIf="isEditing">
+        <mat-form-field appearance="outline">
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="name">
+          <mat-error *ngIf="profileForm.get('name')?.hasError('required')">
+            Name is required
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" type="email">
+          <mat-error *ngIf="profileForm.get('email')?.hasError('required')">
+            Email is required
+          </mat-error>
+          <mat-error *ngIf="profileForm.get('email')?.hasError('email')">
+            Please enter a valid email
+          </mat-error>
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-button (click)="toggleEdit()">
+        {{ isEditing ? 'Cancel' : 'Edit Profile' }}
+      </button>
+      <button mat-raised-button color="primary" (click)="saveProfile()" *ngIf="isEditing" [disabled]="!profileForm.valid">
+        Save Changes
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div> 

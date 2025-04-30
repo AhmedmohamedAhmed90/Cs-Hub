@@ -1,0 +1,58 @@
+.admin-resources {
+  padding: 2rem;
+
+  mat-card {
+    padding: 2rem;
+  }
+
+  .table-container {
+    overflow-x: auto;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  .status-badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 500;
+
+    &.pending {
+      background-color: #fff3e0;
+      color: #ef6c00;
+    }
+
+    &.accepted {
+      background-color: #e8f5e9;
+      color: #2e7d32;
+    }
+
+    &.rejected {
+      background-color: #ffebee;
+      color: #c62828;
+    }
+  }
+
+  .action-buttons {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .admin-resources {
+    padding: 1rem;
+
+    mat-card {
+      padding: 1rem;
+    }
+
+    .table-container {
+      margin: 0 -1rem;
+    }
+  }
+} 

@@ -1,0 +1,111 @@
+.admin-users-container {
+  padding: 24px;
+
+  h2 {
+    margin-bottom: 24px;
+    color: #333;
+  }
+
+  .table-container {
+    overflow-x: auto;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    table {
+      width: 100%;
+
+      th {
+        font-weight: 600;
+        color: #333;
+      }
+
+      td {
+        color: #666;
+      }
+
+      .mat-column-actions {
+        width: 120px;
+        text-align: center;
+      }
+    }
+  }
+}
+
+.admin-users {
+  padding: 2rem;
+
+  mat-card {
+    padding: 2rem;
+  }
+
+  .table-container {
+    overflow-x: auto;
+    margin-top: 1rem;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  .role-badge, .status-badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+
+  .role-badge {
+    &.admin {
+      background-color: #e3f2fd;
+      color: #1976d2;
+    }
+
+    &.user {
+      background-color: #f5f5f5;
+      color: #616161;
+    }
+  }
+
+  .status-badge {
+    &.active {
+      background-color: #e8f5e9;
+      color: #2e7d32;
+    }
+
+    &.inactive {
+      background-color: #ffebee;
+      color: #c62828;
+    }
+
+    &.pending {
+      background-color: #fff3e0;
+      color: #ef6c00;
+    }
+  }
+
+  .action-buttons {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .admin-users {
+    padding: 1rem;
+
+    mat-card {
+      padding: 1rem;
+    }
+
+    .table-container {
+      margin: 0 -1rem;
+    }
+
+    .action-buttons {
+      flex-direction: column;
+    }
+  }
+} 

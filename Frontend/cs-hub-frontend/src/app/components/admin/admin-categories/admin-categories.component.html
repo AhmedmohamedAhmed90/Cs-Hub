@@ -1,0 +1,40 @@
+<div class="admin-categories-container">
+  <h2>Category Management</h2>
+  
+  <div class="table-container">
+    <table mat-table [dataSource]="categories" class="mat-elevation-z8">
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let category">{{ category.name }}</td>
+      </ng-container>
+
+      <!-- Description Column -->
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef>Description</th>
+        <td mat-cell *matCellDef="let category">{{ category.description }}</td>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let category">
+          <button mat-icon-button color="primary" (click)="openEditCategoryDialog(category)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteCategory(category.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+
+  <button mat-raised-button color="primary" (click)="openAddCategoryDialog()" class="add-button">
+    <mat-icon>add</mat-icon>
+    Add Category
+  </button>
+</div> 
