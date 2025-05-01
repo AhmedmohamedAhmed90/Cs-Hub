@@ -65,28 +65,28 @@ export class AdminResourcesComponent implements OnInit {
     });
   }
 
-  acceptResource(resource: Resource): void {
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      data: {
-        title: 'Accept Resource',
-        message: `Are you sure you want to accept ${resource.title}?`
-      }
-    });
+  aacceptResource(resource: Resource): void {
+  const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+    data: {
+      title: 'Approve Resource',
+      message: `Are you sure you want to approve the resource "${resource.title}"?`
+    }
+  });
 
-    dialogRef.afterClosed().subscribe((result: boolean) => {
-      if (result) {
-        // You may need to implement this in ResourceService
-        // this.resourceService.updateResource(resource.id, { status: 'accepted' }).subscribe({
-        //   next: () => {
-        //     this.loadResources();
-        //   },
-        //   error: () => {
-        //     console.error('Error accepting resource');
-        //   }
-        // });
-      }
-    });
-  }
+  dialogRef.afterClosed().subscribe((result: boolean) => {
+    if (result) {
+      this.resourceService.approveResource(Number(resource.id)).subscribe({
+        next: () => {
+          this.loadResources();
+        },
+        error: () => {
+          console.error('Error approving resource');
+        }
+      });
+    }
+  });
+}
+
 
   deleteResource(resource: Resource): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
