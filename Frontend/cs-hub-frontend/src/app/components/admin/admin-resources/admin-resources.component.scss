@@ -40,6 +40,25 @@
     gap: 0.5rem;
     justify-content: flex-end;
   }
+
+  // Accept Resource Button Styling
+  .accept-resource-btn {
+    background-color: #e8f5e9; // light green background
+    color: #2e7d32;            // green icon color
+    border-radius: 50%;
+    transition: background 0.2s, color 0.2s;
+
+    &:hover {
+      background-color: #c8e6c9; // slightly darker green on hover
+      color: #1b5e20;
+    }
+
+    &:focus,
+    &:active {
+      box-shadow: 0 0 0 2px #81c784;
+      outline: none;
+    }
+  }
 }
 
 // Responsive Design
@@ -55,4 +74,4 @@
       margin: 0 -1rem;
     }
   }
-} 
+}
