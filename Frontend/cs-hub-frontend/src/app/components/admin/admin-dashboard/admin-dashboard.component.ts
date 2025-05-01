@@ -50,6 +50,10 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   navigateTo(route: string): void {
-    this.router.navigate([`/admin/${route}`]);
+    if (route === 'profile') {
+      this.router.navigate(['/profile']);
+    } else {
+      this.router.navigate([`/admin/${route}`]);
+    }
   }
 } 

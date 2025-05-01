@@ -6,7 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { AdminService } from '../../../../services/admin.service';
+import { CategoryService } from '../../../../services/category.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -56,7 +56,7 @@ export class AddCategoryDialogComponent {
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<AddCategoryDialogComponent>,
-    private adminService: AdminService,
+    private categoryService: CategoryService,
     private snackBar: MatSnackBar
   ) {
     this.categoryForm = this.fb.group({
@@ -71,7 +71,7 @@ export class AddCategoryDialogComponent {
 
   onSave(): void {
     if (this.categoryForm.valid) {
-      this.adminService.createCategory(this.categoryForm.value).subscribe({
+      this.categoryService.createCategory(this.categoryForm.value).subscribe({
         next: () => {
           this.snackBar.open('Category created successfully', 'Close', { duration: 3000 });
           this.dialogRef.close(true);

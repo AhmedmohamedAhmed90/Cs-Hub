@@ -16,7 +16,7 @@ import { Category } from '../../../../models/category.model';
   template: `
     <h2 mat-dialog-title>Delete Category</h2>
     <mat-dialog-content>
-      <p>Are you sure you want to delete the category "{{data.name}}"?</p>
+      <p>Are you sure you want to delete the category "{{data.category.name}}"?</p>
       <p>This action cannot be undone.</p>
     </mat-dialog-content>
     <mat-dialog-actions align="end">
@@ -29,11 +29,11 @@ export class DeleteCategoryDialogComponent {
   constructor(
     private dialogRef: MatDialogRef<DeleteCategoryDialogComponent>,
     private categoryService: CategoryService,
-    @Inject(MAT_DIALOG_DATA) public data: Category
+    @Inject(MAT_DIALOG_DATA) public data: { category: Category }
   ) {}
 
   onDelete(): void {
-    this.categoryService.deleteCategory(this.data.id).subscribe({
+    this.categoryService.deleteCategory(this.data.category.categoryID).subscribe({
       next: () => {
         this.dialogRef.close(true);
       },

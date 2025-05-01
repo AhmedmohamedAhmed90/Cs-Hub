@@ -50,7 +50,11 @@ export class LoginComponent {
         next: (response) => {
           localStorage.setItem('currentUser', JSON.stringify(response));
           this.authService.setUserId(response.id); // Adjust path if needed
-          this.router.navigate(['/home']);
+          if (response.role === 'Admin') {
+            this.router.navigate(['/admin/dashboard']);
+          } else {
+            this.router.navigate(['/home']);
+          }
         },
         error: (err) => {
           this.error = err.error?.message || 'Login failed. Please try again.';

@@ -976,6 +976,22 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\13e516a0-4a28-447d-9213-f94bf17ca134_Screenshot 2025-04-19 040046.png))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\28fd02e2-656d-4d90-8d24-72c4d41525de_fathy2028's Commits.png))">
+      <SourceType>Package</SourceType>
+      <SourceId>Cs-Hub</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/Cs-Hub</BasePath>
+      <RelativePath>uploads/28fd02e2-656d-4d90-8d24-72c4d41525de_fathy2028's Commits.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\28fd02e2-656d-4d90-8d24-72c4d41525de_fathy2028's Commits.png))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\310885f5-5827-4c14-bde4-b1533d7e1804_Gmail - Confirmation of Website Development Agreement.pdf))">
       <SourceType>Package</SourceType>
       <SourceId>Cs-Hub</SourceId>

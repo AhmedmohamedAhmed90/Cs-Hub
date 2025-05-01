@@ -67,4 +67,12 @@ export class AuthService {
   isLoggedIn(): boolean {
     return this.getUserId() !== null;
   }
+
+  isAdmin(): boolean {
+    if (this.isBrowser()) {
+      const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+      return currentUser.role === 'Admin';
+    }
+    return false;
+  }
 } 

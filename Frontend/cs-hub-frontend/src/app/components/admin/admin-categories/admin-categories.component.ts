@@ -113,7 +113,7 @@ export class AdminCategoriesComponent implements OnInit {
 
   openEditDialog(category: Category): void {
     const dialogRef = this.dialog.open(EditCategoryDialogComponent, {
-      data: category
+      data: { category }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -125,7 +125,7 @@ export class AdminCategoriesComponent implements OnInit {
 
   openDeleteDialog(category: Category): void {
     const dialogRef = this.dialog.open(DeleteCategoryDialogComponent, {
-      data: category
+      data: { category }
     });
 
     dialogRef.afterClosed().subscribe(result => {

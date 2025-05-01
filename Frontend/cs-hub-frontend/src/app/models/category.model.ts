@@ -1,5 +1,6 @@
 export interface Category {
-  id: string;
+  categoryID: number;
   name: string;
   description: string;
+  resources?: any[];
 } 

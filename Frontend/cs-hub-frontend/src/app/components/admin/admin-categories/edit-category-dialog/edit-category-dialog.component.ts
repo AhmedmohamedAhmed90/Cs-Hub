@@ -75,7 +75,7 @@ export class EditCategoryDialogComponent {
         ...this.data.category,
         ...this.categoryForm.value
       };
-      this.categoryService.updateCategory(this.data.category.id, updatedCategory).subscribe({
+      this.categoryService.updateCategory(this.data.category.categoryID, updatedCategory).subscribe({
         next: () => {
           this.dialogRef.close(updatedCategory);
         },

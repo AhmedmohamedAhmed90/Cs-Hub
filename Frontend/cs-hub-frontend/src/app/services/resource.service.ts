@@ -12,7 +12,7 @@ export class ResourceService {
   constructor(private http: HttpClient) {}
 
   getAllResources(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/view_resources`);
+    return this.http.get(`${this.apiUrl}/get_all_resources`);
   }
 
   uploadResource(resourceData: FormData): Observable<any> {
