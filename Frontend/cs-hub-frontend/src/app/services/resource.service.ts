@@ -23,6 +23,10 @@ export class ResourceService {
     return this.http.delete(`${this.apiUrl}/delete_resource/${id}`);
   }
 
+  approveResource(resourceId: number): Observable<any> {
+    return this.http.put(`${this.apiUrl}/approve_resource/${resourceId}`, {});
+  }
+  
   getResourceById(id: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/get_resource/${id}`);
   }
