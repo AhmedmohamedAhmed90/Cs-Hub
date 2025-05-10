@@ -40,7 +40,7 @@ export class AdminResourcesComponent implements OnInit {
   constructor(
     private resourceService: ResourceService,
     private dialog: MatDialog
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loadResources();
@@ -55,8 +55,7 @@ export class AdminResourcesComponent implements OnInit {
           description: r.description,
           uploaderName: r.user?.fullName,
           uploadDate: r.createdAt,
-          status: r.status,
-          // add other fields as needed
+          status: r.status?.toLowerCase() // ✅ ده السطر المهم
         }));
       },
       error: (error: any) => {
@@ -65,34 +64,34 @@ export class AdminResourcesComponent implements OnInit {
     });
   }
 
+
   aacceptResource(resource: Resource): void {
-  const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-    data: {
-      title: 'Approve Resource',
-      message: `Are you sure you want to approve the resource "${resource.title}"?`
-    }
-  });
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        title: 'Approve Resource',
+        message: Are you sure you want to approve the resource "${resource.title}"?
+      }
+    });
 
-  dialogRef.afterClosed().subscribe((result: boolean) => {
-    if (result) {
-      this.resourceService.approveResource(Number(resource.id)).subscribe({
-        next: () => {
-          this.loadResources();
-        },
-        error: () => {
-          console.error('Error approving resource');
-        }
-      });
-    }
-  });
-}
-
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if (result) {
+        this.resourceService.approveResource(Number(resource.id)).subscribe({
+          next: () => {
+            this.loadResources();
+          },
+          error: () => {
+            console.error('Error approving resource');
+          }
+        });
+      }
+    });
+  }
 
   deleteResource(resource: Resource): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: {
         title: 'Delete Resource',
-        message: `Are you sure you want to delete ${resource.title}? This action cannot be undone.`
+        message: Are you sure you want to delete ${resource.title}? This action cannot be undone.
       }
     });
 
@@ -109,4 +108,4 @@ export class AdminResourcesComponent implements OnInit {
       }
     });
   }
-} 
+}
