@@ -41,15 +41,14 @@
     justify-content: flex-end;
   }
 
-  // Accept Resource Button Styling
   .accept-resource-btn {
-    background-color: #e8f5e9; // light green background
-    color: #2e7d32;            // green icon color
+    background-color: #e8f5e9;
+    color: #2e7d32;
     border-radius: 50%;
     transition: background 0.2s, color 0.2s;
 
     &:hover {
-      background-color: #c8e6c9; // slightly darker green on hover
+      background-color: #c8e6c9;
       color: #1b5e20;
     }
 
@@ -61,7 +60,6 @@
   }
 }
 
-// Responsive Design
 @media (max-width: 768px) {
   .admin-resources {
     padding: 1rem;
