@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Cs-Hub")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9f15ffabd93749b6421b235ddba6de4bad9f69ef")]
 [assembly: System.Reflection.AssemblyProductAttribute("Cs-Hub")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Cs-Hub")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

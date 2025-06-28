@@ -69,7 +69,7 @@ export class AdminResourcesComponent implements OnInit {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: {
         title: 'Approve Resource',
-        message: Are you sure you want to approve the resource "${resource.title}"?
+        message: `Are you sure you want to approve the resource "${resource.title}"?`
       }
     });
 
@@ -91,7 +91,7 @@ export class AdminResourcesComponent implements OnInit {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: {
         title: 'Delete Resource',
-        message: Are you sure you want to delete ${resource.title}? This action cannot be undone.
+        message: `Are you sure you want to delete ${resource.title}? This action cannot be undone.`
       }
     });
 

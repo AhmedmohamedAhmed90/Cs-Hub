@@ -1,20 +1,27 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using Cs_Hub.Data;
+﻿using Cs_Hub.Data;
+using Cs_Hub.Dtos;
 using Cs_Hub.Interfaces;
 using Cs_Hub.Models;
-using Cs_Hub.Services;
-using Cs_Hub.Dtos;
-using System.Text.RegularExpressions;
-using FluentValidation;
-using Humanizer.Localisation;
-using Microsoft.AspNetCore.Mvc;
-using Cs_Hub.Validator;
 using Cs_Hub.Repository;
-using ScHub.Interfaces;
+using Cs_Hub.Services;
+using Cs_Hub.Validator;
+using FluentValidation;
+using Humanizer;
+using Humanizer.Localisation;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using ScHub.Interfaces;
+using System;
+using System.Text;
+using System.Text.RegularExpressions;
+using static System.Net.Mime.MediaTypeNames;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -64,6 +71,23 @@ builder.Services.AddAuthentication(options =>
         ValidAudience = builder.Configuration["JWT:Audience"],
         ValidateIssuerSigningKey = true,
         IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(builder.Configuration["JWT:SigningKey"]))
+    };
+
+     // ✅ Enable SignalR to extract token from query string
+    options.Events = new JwtBearerEvents
+    {
+        OnMessageReceived = context =>
+        {
+            var accessToken = context.Request.Query["access_token"];
+            var path = context.HttpContext.Request.Path;
+
+            if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/chatHub"))
+            {
+                context.Token = accessToken;
+            }
+
+            return Task.CompletedTask;
+        }
     };
 });
 
@@ -120,6 +144,9 @@ builder.Services.AddCors(options =>
         });
 });
 
+
+builder.Services.AddSignalR();
+
 var app = builder.Build();
 
 
@@ -132,6 +159,79 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+
+
+//public class LoggingMiddleware
+//{
+//    private readonly RequestDelegate _next;
+//    public LoggingMiddleware(RequestDelegate next)
+//    {
+//        _next = next;
+//    }
+
+//    public async Task Invoke(HttpContext context)
+//    {
+//        Console.WriteLine("Middleware running");
+//        await _next(context); // call next middleware
+//    }
+//}
+//app.UseMiddleware<LoggingMiddleware>();
+
+
+//🔹 Example: Only apply to / admin routes
+//csharp
+//Copy
+//Edit
+//app.UseWhen(context => context.Request.Path.StartsWithSegments("/admin"), adminApp =>
+//{
+//    adminApp.Use(async (context, next) =>
+//    {
+//        Console.WriteLine("🔒 Admin area middleware");
+//await next();
+//    });
+//});
+
+
+//run mara wa7da bs
+//bool hasRun = false;
+
+//app.Use(async (context, next) =>
+//{
+//    if (!hasRun)
+//    {
+//        hasRun = true;
+//        Console.WriteLine("🔥 Middleware ran only ONCE (first request)");
+//    }
+//    await next();
+//});
+
+
+//| Feature | **Middleware * *                     | **Filter * *                                        |
+//| ---------------------- | ---------------------------------- | ------------------------------------------------- |
+//| **Scope * *              | Application - wide(whole pipeline) | MVC - level(controller / action level) |
+//| **Runs On * *            | All requests, before routing       | After routing, inside MVC pipeline                |
+//| **Access**             | `HttpContext` only                 | Full access to controller, model binding, results |
+//| **Use Case**           | Logging, CORS, Auth, Headers, etc. | Model validation, logging per action, auth checks |
+//| **DI Support**         | Yes                                | Yes                                               |
+//| **Granularity**        | Coarse-grained (global)            | Fine-grained (per-controller/action)              |
+//| **Order of Execution** | Runs before Filters                | Runs after Middleware                             |
+
+//public class LogActionFilter : IActionFilter
+//{
+//    public void OnActionExecuting(ActionExecutingContext context)
+//    {
+//        Console.WriteLine("🎯 [Filter] - Before action");
+//    }
+
+//    public void OnActionExecuted(ActionExecutedContext context)
+//    {
+//        Console.WriteLine("🎯 [Filter] - After action");
+//    }
+//}
+//builder.Services.AddScoped<LogActionFilter>();  de fe el program.cs
+
+
+
 // ✅ Swagger Middleware
 app.UseSwagger();
 app.UseSwaggerUI(c =>
@@ -139,6 +239,17 @@ app.UseSwaggerUI(c =>
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "Cs_Hub API V1");
     c.RoutePrefix = "swagger"; // تفتح swagger من /swagger
 });
+
+
+app.Use(async (context, next) =>
+{
+    Console.WriteLine("➡️ Before next middleware");
+    Console.WriteLine(context.Request.Path.ToString());
+    await next(); // Call next middleware
+    Console.WriteLine("⬅️ After next middleware");
+});
+
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
@@ -152,10 +263,15 @@ app.UseAuthorization();
 // Use CORS before other middleware
 app.UseCors("AllowAngularApp");
 
+
+
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
 });
+
+
+
 
 // ✅ Optional: Traditional MVC route (مش مفعّل دلوقتي)
 /*

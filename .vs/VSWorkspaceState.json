@@ -1,16 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Frontend",
-    "\\Frontend\\cs-hub-frontend",
-    "\\Frontend\\cs-hub-frontend\\src",
-    "\\Frontend\\cs-hub-frontend\\src\\app",
-    "\\Frontend\\cs-hub-frontend\\src\\app\\components",
-    "\\Frontend\\cs-hub-frontend\\src\\app\\components\\auth",
-    "\\Frontend\\cs-hub-frontend\\src\\app\\components\\auth\\register",
-    "\\Frontend\\cs-hub-frontend\\src\\app\\models",
-    "\\Frontend\\cs-hub-frontend\\src\\app\\services"
+    "\\Backend",
+    "\\Backend\\Controllers",
+    "\\Backend\\Repository"
   ],
-  "SelectedNode": "\\Backend\\Controllers\\UserController.cs",
+  "SelectedNode": "\\Backend\\Cs-Hub.sln",
   "PreviewInSolutionExplorer": false
 }
