@@ -73,7 +73,7 @@ builder.Services.AddAuthentication(options =>
         IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(builder.Configuration["JWT:SigningKey"]))
     };
 
-     // ✅ Enable SignalR to extract token from query string
+    // ✅ Enable SignalR to extract token from query string
     options.Events = new JwtBearerEvents
     {
         OnMessageReceived = context =>
@@ -81,11 +81,19 @@ builder.Services.AddAuthentication(options =>
             var accessToken = context.Request.Query["access_token"];
             var path = context.HttpContext.Request.Path;
 
+            Console.WriteLine($"🔍 JWT Event - Path: {path}, Token: {(string.IsNullOrEmpty(accessToken) ? "Not found" : "Found")}");
+
             if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/chatHub"))
             {
                 context.Token = accessToken;
+                Console.WriteLine($"✅ Token set for SignalR connection: {path}");
             }
 
+            return Task.CompletedTask;
+        },
+        OnAuthenticationFailed = context =>
+        {
+            Console.WriteLine($"❌ JWT Authentication failed: {context.Exception.Message}");
             return Task.CompletedTask;
         }
     };
@@ -137,10 +145,11 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowAngularApp",
         builder =>
         {
-            builder.WithOrigins("http://localhost:4200")
+            builder.WithOrigins("http://localhost:4200", "https://localhost:4200")
                    .AllowAnyHeader()
                    .AllowAnyMethod()
-                   .AllowCredentials();
+                   .AllowCredentials()
+                   .SetIsOriginAllowed(origin => true); // More permissive for development
         });
 });
 
@@ -268,6 +277,9 @@ app.UseCors("AllowAngularApp");
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
+    
+    // ✅ Map SignalR Hub
+    endpoints.MapHub<Cs_Hub.Hubs.ChatHub>("/chatHub");
 });
 
 

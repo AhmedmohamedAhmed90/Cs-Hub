@@ -7,6 +7,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
+import { ChatService } from '../../../services/chat.service';
+
 
 import { HttpClientModule } from '@angular/common/http';
 
@@ -36,6 +38,7 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
+    private chatService:ChatService,
     private router: Router
   ) {
     this.loginForm = this.fb.group({
@@ -50,6 +53,10 @@ export class LoginComponent {
         next: (response) => {
           localStorage.setItem('currentUser', JSON.stringify(response));
           this.authService.setUserId(response.id); // Adjust path if needed
+          const token = response.token;
+    localStorage.setItem('token', token);
+    // Start SignalR after successful login
+    this.chatService.startConnection(token);
           if (response.role === 'Admin') {
             this.router.navigate(['/admin/dashboard']);
           } else {

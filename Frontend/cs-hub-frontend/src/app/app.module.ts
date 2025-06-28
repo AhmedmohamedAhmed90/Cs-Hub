@@ -7,10 +7,13 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { AppComponent } from './app.component';
 import { routes } from './app.routes';
+import { FormsModule } from '@angular/forms'; // ✅ IMPORTANT
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    HomeComponent, 
     
   ],
   imports: [
@@ -18,7 +21,8 @@ import { routes } from './app.routes';
     BrowserAnimationsModule,
     HttpClientModule,
     RouterModule.forRoot(routes),
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    FormsModule,
   ],
   providers: [
     { provide: 'API_URL', useValue: 'http://localhost:5000' }

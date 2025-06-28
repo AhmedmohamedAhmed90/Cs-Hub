@@ -1,6 +1,42 @@
 <!-- Remove header and footer, keep only the main content -->
 <main class="main-content">
   <div class="container">
+    <!-- Header with Chat Button -->
+    <div class="header-actions">
+      <button 
+        mat-icon-button 
+        [matBadge]="chatNotifications.length" 
+        matBadgeColor="warn"
+        (click)="toggleChatList()"
+        class="chat-button">
+        <mat-icon>chat</mat-icon>
+      </button>
+    </div>
+
+    <!-- Chat List Panel -->
+    <div class="chat-list-panel" *ngIf="showChatList">
+      <mat-card class="chat-list-card">
+        <mat-card-header>
+          <mat-card-title>Active Chats</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div *ngIf="activeChats.length === 0" class="no-chats">
+            <p>No active chats</p>
+          </div>
+          <div *ngFor="let chat of activeChats" class="chat-item" (click)="openChat(chat.userId)">
+            <div class="chat-user-info">
+              <mat-icon class="user-avatar">account_circle</mat-icon>
+              <div class="chat-details">
+                <span class="chat-username">{{ chat.userName }}</span>
+                <span class="chat-last-message" *ngIf="chat.lastMessage">{{ chat.lastMessage }}</span>
+              </div>
+            </div>
+            <mat-icon *ngIf="chatNotifications.includes(chat.userId)" class="notification-indicator">notifications_active</mat-icon>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
     <!-- Search Input -->
     <mat-form-field appearance="outline" class="search-bar">
       <mat-label>Search resources</mat-label>
@@ -34,17 +70,17 @@
     <div class="resources-container" *ngIf="!loading && !error">
       <mat-card class="resource-card" *ngFor="let resource of resources">
         <div class="card-header">
-          <div class="user-info">
-            <mat-icon class="user-avatar">account_circle</mat-icon>
-            <div class="user-details">
-              <span class="username">{{
-                resource.user?.fullName || "Unknown User"
-              }}</span>
-              <span class="post-time">{{
-                resource.createdAt | date : "medium"
-              }}</span>
-            </div>
-          </div>
+         <div class="user-info">
+          <!-- (click)="startChat(resource.user.id)" -->
+  <button class="user-avatar-button" (click)="startChat(resource.user.id)">
+    <mat-icon class="user-avatar">account_circle</mat-icon>
+  </button>
+  <div class="user-details">
+    <span class="username">{{ resource.user?.fullName || "Unknown User" }}</span>
+    <span class="post-time">{{ resource.createdAt | date : "medium" }}</span>
+  </div>
+</div>
+
           <div class="resource-category">
             <mat-chip>{{ resource.category?.name || "No Category" }}</mat-chip>
           </div>

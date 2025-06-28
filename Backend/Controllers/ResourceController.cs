@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Hosting;
 using FluentValidation;
 using Cs_Hub.Interfaces;
 using ScHub.Interfaces;
+using Microsoft.AspNetCore.Components.Web;
+using Microsoft.Build.Logging;
 
 
 namespace Cs_Hub.Controllers
@@ -202,7 +204,6 @@ namespace Cs_Hub.Controllers
                     })
                 })
                 .ToListAsync();
-
             return Ok(new { message = "Resources found", resources });
         }
 

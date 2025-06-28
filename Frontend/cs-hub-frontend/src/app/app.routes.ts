@@ -12,6 +12,7 @@ import { AdminUsersComponent } from './components/admin/admin-users/admin-users.
 import { AdminCategoriesComponent } from './components/admin/admin-categories/admin-categories.component';
 import { AdminResourcesComponent } from './components/admin/admin-resources/admin-resources.component';
 import { AdminProfileComponent } from './components/admin/admin-profile/admin-profile.component';
+import { ChatComponent } from './components/chat/chat.component';
 
 
 export const routes: Routes = [
@@ -23,6 +24,7 @@ export const routes: Routes = [
   { path: 'profile', component: ProfileComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'my-resources', component: MyResourcesComponent },
+    { path: 'chat/:userId', component: ChatComponent },
   { path: 'admin',
     children: [
       { path: 'dashboard', component: AdminDashboardComponent, children: [

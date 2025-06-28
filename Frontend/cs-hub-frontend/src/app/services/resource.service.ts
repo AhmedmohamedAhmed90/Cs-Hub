@@ -15,6 +15,10 @@ export class ResourceService {
     return this.http.get(`${this.apiUrl}/get_all_resources`);
   }
 
+  getApprovedResources(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/view_resources`);
+  }
+
   uploadResource(resourceData: FormData): Observable<any> {
     return this.http.post(`${this.apiUrl}/upload`, resourceData);
   }

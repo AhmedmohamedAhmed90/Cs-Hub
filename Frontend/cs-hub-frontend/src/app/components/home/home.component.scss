@@ -298,4 +298,139 @@ body {
       font-size: 0.875rem;
     }
   }
+}
+
+// Chat-related styles
+.header-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+
+  .chat-button {
+    background-color: $primary-color;
+    color: white;
+    
+    &:hover {
+      background-color: $secondary-color;
+    }
+  }
+}
+
+.chat-list-panel {
+  position: absolute;
+  top: 80px;
+  right: 20px;
+  z-index: 1000;
+  width: 300px;
+  max-height: 400px;
+  overflow-y: auto;
+
+  .chat-list-card {
+    background: $card-background;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px $shadow-color;
+
+    mat-card-header {
+      padding: 1rem;
+      border-bottom: 1px solid $border-color;
+      background-color: rgba($primary-color, 0.05);
+
+      mat-card-title {
+        margin: 0;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: $text-color;
+      }
+    }
+
+    mat-card-content {
+      padding: 0;
+
+      .no-chats {
+        padding: 2rem;
+        text-align: center;
+        color: #65676b;
+      }
+
+      .chat-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem;
+        border-bottom: 1px solid $border-color;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+
+        &:hover {
+          background-color: rgba($primary-color, 0.05);
+        }
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        .chat-user-info {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          flex: 1;
+
+          .user-avatar {
+            font-size: 32px;
+            width: 32px;
+            height: 32px;
+            color: $primary-color;
+          }
+
+          .chat-details {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+
+            .chat-username {
+              font-weight: 600;
+              color: $text-color;
+              font-size: 0.9rem;
+            }
+
+            .chat-last-message {
+              color: #65676b;
+              font-size: 0.8rem;
+              margin-top: 0.25rem;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              max-width: 200px;
+            }
+          }
+        }
+
+        .notification-indicator {
+          color: #f44336;
+          font-size: 20px;
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+  }
+}
+
+// Responsive design for chat panel
+@media (max-width: 768px) {
+  .chat-list-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    max-height: 100vh;
+    z-index: 2000;
+
+    .chat-list-card {
+      height: 100vh;
+      border-radius: 0;
+    }
+  }
 } 
